@@ -11,7 +11,7 @@ const Board = ({ wide, board }) => {
 
   const renderBox = (i) => {
     return (
-      <button className="box" onClick={() => handleClick(i)}>
+      <button key={i} className="box" onClick={() => handleClick(i)}>
         {boardState[i]}
       </button>
     );
