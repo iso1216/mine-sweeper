@@ -6,6 +6,7 @@ function App() {
   const [bombs, setBombs] = useState(null);
   const [view, setView] = useState(true);
   const [result, setResult] = useState(false);
+  const [checkResult, setCheckResult] = useState(false);
 
   const difficultySet = (difficulty) => {
     if (difficulty === "easy") {
@@ -51,16 +52,17 @@ function App() {
   };
 
   const viewGame = () => {
-    return <Game wide={wide} bombs={bombs} setResult={setResult} />;
+    return <Game wide={wide} bombs={bombs} setResult={setResult} setCheckResult={setCheckResult}/>;
   };
 
-  const viewGameover = ()  => {
-    return <h1>gameover</h1>
+  const viewResult = ()  => {
+    if (checkResult) return <h1>clear!!!</h1>;
+    else return <h1>gameover</h1>;
   }
 
   return (
     <div className="App">
-      <div className="Game">{result ? viewGameover() : view ? viewGamemode() : viewGame()}</div>
+      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewGame()}</div>
     </div>
   );
 }

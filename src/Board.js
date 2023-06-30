@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult }) => {
+const Board = ({ wide, board, setResult, setCheckResult }) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
-  const [bombs, setBombs] = useState(false);
+  const [wait, setWait] = useState(false);
+
+  useEffect(() => {
+    if (!boardState.includes(null)){
+      setWait(true);
+      setTimeout(()=>{
+        setCheckResult(true);
+        setResult(true);
+      },1000);
+    }
+  }, [boardState, setCheckResult, setResult]);
 
   const handleGameOver = () => {
-    setBombs(true);
+    setWait(true);
     setTimeout(() => {
       console.log("Game Over");
       setResult(true);
@@ -25,7 +35,7 @@ const Board = ({ wide, board, setResult }) => {
   };
 
   const handleMouseDown = (event, i) => {
-    if (bombs) return;
+    if (wait) return;
     const newBoard = [...boardState];
     const newOpen = [...open];
 
