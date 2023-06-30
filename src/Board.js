@@ -3,15 +3,64 @@ import React, { useState } from "react";
 const Board = ({ wide, board }) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
 
-  const handleClick = (i) => {
+  const handleMouseDown = (event, i) => {
     const newBoard = boardState.slice();
-    newBoard[i] = board[i];
-    setBoardState(newBoard);
+    if (event.button === 0) {
+      newBoard[i] = board[i];
+      if (board[i] === 0) setBoardState(revealAdjacentCells(i, newBoard));
+      else setBoardState(newBoard);
+    } else if (event.button === 2) {
+      if (newBoard[i]!==null && newBoard[i]!=='flg') return;
+      if (newBoard[i]==='flg') newBoard[i]=null;
+      else newBoard[i] = 'flg';
+      setBoardState(newBoard);
+    }
+  };
+
+  const revealAdjacentCells = (index, newBoard) => {
+    const row = Math.floor(index / wide);
+    const col = index % wide;
+  
+    const neighbors = [
+      { row: row - 1, col }, // 上
+      { row: row + 1, col }, // 下
+      { row, col: col - 1 }, // 左
+      { row, col: col + 1 }, // 右
+    ];
+  
+    for (const neighbor of neighbors) {
+      const { row, col } = neighbor;
+      const neighborIndex = row * wide + col;
+  
+      if (
+        row >= 0 &&
+        row < wide &&
+        col >= 0 &&
+        col < wide &&
+        newBoard[neighborIndex] === null
+      ) {
+        newBoard[neighborIndex] = board[neighborIndex];
+        if (board[neighborIndex] === 0) {
+          revealAdjacentCells(neighborIndex, newBoard);
+        }
+      }
+    }
+    
+    return newBoard;
+  };  
+
+  const handleContextMenu = (event) => {
+    event.preventDefault(); // デフォルトのコンテキストメニューを非表示にする
   };
 
   const renderBox = (i) => {
     return (
-      <button key={i} className="box" onClick={() => handleClick(i)}>
+      <button
+        key={i}
+        className="box"
+        onMouseDown={(event) => handleMouseDown(event, i)}
+        onContextMenu={handleContextMenu}
+      >
         {boardState[i]}
       </button>
     );

@@ -9,15 +9,15 @@ function App() {
   const difficultySet = (difficulty) => {
     if (difficulty === "easy") {
       setWide(10);
-      setBombs(15);
+      setBombs(10);
       setView(false);
     } else if (difficulty === "normal") {
       setWide(15);
-      setBombs(30);
+      setBombs(20);
       setView(false);
     } else {
       setWide(18);
-      setBombs(50);
+      setBombs(40);
       setView(false);
     }
   };
