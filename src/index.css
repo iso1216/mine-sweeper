@@ -110,9 +110,35 @@ body {
   border-radius: 0.5rem;
 }
 
+.btn-solid {
+  color: black;
+  border-top: 4px solid aquamarine;
+  border-right: 4px solid rgb(0, 138, 138);
+  border-bottom: 4px solid rgb(0, 138, 138);
+  border-left: 4px solid aquamarine;
+  border-radius: 0;
+  background: aqua;
+  font-weight: bold;
+}
+
+.btn-solid:hover {
+  color: rgb(48, 48, 48);
+  border-top: 4px solid rgb(0, 138, 138);
+  border-right: 4px solid aquamarine;
+  border-bottom: 4px solid aquamarine;
+  border-left: 4px solid rgb(0, 138, 138);
+  font-weight: bold;
+}
+
 .title{
   text-align: center;
   font-size: 50px;
+}
+
+.result{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 ul {

@@ -56,8 +56,20 @@ function App() {
   };
 
   const viewResult = ()  => {
-    if (checkResult) return <h1>clear!!!</h1>;
-    else return <h1>gameover</h1>;
+    return (
+      <div>
+        <h1 className="title">{checkResult ? "clear!!!" : "gameover"}</h1>
+        <div className="result">
+          <button onClick={()=>{
+            setView(true);
+            setResult(false);
+            setCheckResult(false);
+          }}
+          className="btn btn-solid"
+          >再挑戦</button>
+        </div>
+      </div>
+    );
   }
 
   return (
