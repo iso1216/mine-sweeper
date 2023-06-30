@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Board from "./Board";
 
-const Game = ({ wide, bombs, setGameover }) => {
+const Game = ({ wide, bombs, setResult }) => {
   const [board, setBoard] = useState(Array(wide ** 2).fill(0));
   const [isSet, setIsSet] = useState(false);
 
@@ -45,7 +45,7 @@ const Game = ({ wide, bombs, setGameover }) => {
   };
 
   const viewBoard = () => {
-    return <Board wide={wide} board={board} setGameover={setGameover} />;
+    return <Board wide={wide} board={board} setResult={setResult} />;
   };
 
   return <div>{isSet ? viewBoard() : setBombs()}</div>;

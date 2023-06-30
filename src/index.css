@@ -1,25 +1,70 @@
-
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+html {
+  font-size: 70%;
+}
 
 body {
   margin: auto;
   background-color: darkseagreen;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .box{
   font-family: 'Noto Sans JP', sans-serif;
-  background: #fff;
   float: left;
   line-height: 34px;
-  height: 40px;
+  height: 44.8px;
   padding: 0;
   text-align: center;
-  width: 40px;
+  width: 44.8px;
+  border: outset;
+}
+
+.empty{
+  background: rgb(184, 183, 183);
+}
+
+.flg{
+  background-image: url(./img/flg.png);
+}
+
+.bombs{
+  background-image: url(./img/bomb.png);
+}
+
+.zero{
+  background: white;
+  color: #212529;
+  font-weight: bold;
+}
+
+.one{
+  background: white;
+  color: blue;
+  font-weight: bold;
+}
+
+.two{
+  background: white;
+  color: green;
+  font-weight: bold;
+}
+
+.three{
+  background: white;
+  color: red;
+  font-weight: bold;
+}
+
+.four{
+  background: white;
+  color: purple;
+  font-weight: bold;
+}
+
+.others{
+  background: white;
+  font-weight: bold;
 }
 
 .box:focus {
@@ -31,9 +76,58 @@ code {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100%;
 }
+
 .board-row:after {
   clear: both;
   content: "";
   display: table;
+}
+
+.btn-radius-solid {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #f1e767 0%, #feb645 100%);
+}
+
+.btn-radius-solid:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #f1e767 0%, #feb645 100%);
+}
+
+.btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 15px;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  position: relative;
+  padding: 1rem 4rem;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.title{
+  text-align: center;
+  font-size: 50px;
+}
+
+ul {
+  padding: 0;
+}
+
+ul li, ol li {
+  color: #404040;
+  border-left: solid 8px #1fa67a;/*左側の線*/
+  border-bottom: solid 3px #b7b7b7;/*下に灰色線*/
+  background: whitesmoke;
+  margin-bottom: 5px;/*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none!important;/*ポチ消す*/
+  font-weight: bold;
+  font-size: 15px;
 }
