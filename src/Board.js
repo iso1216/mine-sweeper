@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, time, setTime }) => {
+const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, setTime}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
   const [wait, setWait] = useState(false);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     if (!boardState.includes(null)){
@@ -75,9 +76,11 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
 
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
       if (newBoard[i] === "flg") {
+        setCounter(counter-1);
         newBoard[i] = null;
         newOpen[i] = false;
       } else {
+        setCounter(counter+1);
         newBoard[i] = "flg";
         newOpen[i] = true;
       }
@@ -142,11 +145,19 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
 
   return (
     <div>
-      {edge.map((index) => (
-        <div className="board-row" key={index}>
-          {edge.map((number) => renderBox(number + wide * index))}
-        </div>
-      ))}
+      <div className="count">
+        <div className="flg"></div>
+        <div>現在：{counter}</div>
+      </div>
+      <div className="board-container">
+      <div>
+        {edge.map((index) => (
+          <div className="board-row" key={index}>
+            {edge.map((number) => renderBox(number + wide * index))}
+          </div>
+        ))}
+      </div>
+      </div>
     </div>
   );
 };

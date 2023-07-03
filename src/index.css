@@ -26,10 +26,14 @@ body {
 
 .flg{
   background-image: url(./img/flg.png);
+  width: 44.8px;
+  height: 44.8px;
 }
 
 .bombs{
   background-image: url(./img/bomb.png);
+  width: 44.8px;
+  height: 44.8px;
 }
 
 .zero{
@@ -69,6 +73,10 @@ body {
 
 .box:focus {
   outline: none;
+}
+
+.Game{
+  width: 100%;
 }
 
 .App{
@@ -160,4 +168,35 @@ ul li, ol li {
 
 .timer{
   font-size: 30px;
+  text-align: center;
+}
+
+.board-container {
+  display: flex;
+  justify-content: center;
+}
+
+.count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.gamemode{
+  text-align: center;
+}
+
+.info{
+  display: flex;
+  justify-content: center;
+}
+
+.childinfo{
+  width: 400px;
 }

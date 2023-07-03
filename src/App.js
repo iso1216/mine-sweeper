@@ -47,13 +47,15 @@ function App() {
             難しい
           </button>
         </div>
-        <div>
-          <h2>難易度選択</h2>
-          <ul>
-          <li>簡単：10×10マスで爆弾15個</li>
-          <li>普通：13×13マスで爆弾30個</li>
-          <li>難しい：16×16マスで爆弾50個</li>
-          </ul>
+        <div className="info">
+          <div className="childinfo">
+            <h2>難易度選択</h2>
+            <ul>
+            <li>簡単：10×10マスで爆弾15個</li>
+            <li>普通：13×13マスで爆弾30個</li>
+            <li>難しい：16×16マスで爆弾50個</li>
+            </ul>
+          </div>
         </div>
       </div>
     );
@@ -63,7 +65,7 @@ function App() {
     return <Game wide={wide} bombs={bombs}
     setResult={setResult} setCheckResult={setCheckResult}
     isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
-    time={time} setTime={setTime} />;
+    setTime={setTime} />;
   };
 
   const viewResult = ()  => {
