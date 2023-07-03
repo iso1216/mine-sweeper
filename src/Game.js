@@ -10,8 +10,8 @@ const Game = ({ wide, bombs, setResult, setCheckResult }) => {
       if (board[index] === "bombs") {
         for (let i = -1; i <= 1; i++) {
           for (let j = -1; j <= 1; j++) {
-            if (index % wide === wide-1 && j === -1) continue;
-            if (index % wide === 0 && j === 1) continue;
+            if (index % wide === 0 && j === -1) continue;
+            if (index % wide === wide-1 && j === 1) continue;
             if (board[index + j + wide * i] !== "bombs") board[index + j + wide * i]++;
           }
         }
