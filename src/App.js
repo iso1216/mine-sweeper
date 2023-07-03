@@ -7,8 +7,16 @@ function App() {
   const [view, setView] = useState(true);
   const [result, setResult] = useState(false);
   const [checkResult, setCheckResult] = useState(false);
+  const [time, setTime] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  const startTimer = () => {
+    setIsTimerRunning(true);
+    setTime(0);
+  };
 
   const difficultySet = (difficulty) => {
+    startTimer();
     if (difficulty === "easy") {
       setWide(10);
       setBombs(15);
@@ -52,13 +60,22 @@ function App() {
   };
 
   const viewGame = () => {
-    return <Game wide={wide} bombs={bombs} setResult={setResult} setCheckResult={setCheckResult}/>;
+    return <Game wide={wide} bombs={bombs}
+    setResult={setResult} setCheckResult={setCheckResult}
+    isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
+    time={time} setTime={setTime} />;
   };
 
   const viewResult = ()  => {
     return (
       <div>
-        <h1 className="title">{checkResult ? "clear!!!" : "gameover"}</h1>
+        {checkResult ?
+          <div>
+            <h1 className="title">clear!!!</h1>
+            <div className="timer">クリアタイム: {time}秒</div>
+          </div>
+          : <h1 className="title">gameover</h1>
+}
         <div className="result">
           <button onClick={()=>{
             setView(true);

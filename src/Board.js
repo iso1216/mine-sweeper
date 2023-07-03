@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult, setCheckResult }) => {
+const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, time, setTime }) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
   const [wait, setWait] = useState(false);
@@ -8,12 +8,28 @@ const Board = ({ wide, board, setResult, setCheckResult }) => {
   useEffect(() => {
     if (!boardState.includes(null)){
       setWait(true);
+      stopTimer();
       setTimeout(()=>{
         setCheckResult(true);
         setResult(true);
       },1000);
     }
   }, [boardState, setCheckResult, setResult]);
+
+  const stopTimer = () => {
+    setIsTimerRunning(false);
+  };
+
+  useEffect(() => {
+    let interval;
+    if (isTimerRunning) {
+      interval = setInterval(() => {
+        setTime((prevTime) => (prevTime*10 + 1)/10);
+      }, 100);
+    }
+
+    return () => clearInterval(interval);
+  }, [isTimerRunning]);
 
   const handleGameOver = () => {
     setWait(true);
