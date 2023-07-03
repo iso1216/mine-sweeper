@@ -9,6 +9,8 @@ const Game = ({ wide, bombs, setResult, setCheckResult }) => {
     for (let index = 0; index < board.length; index++) {
       if (board[index] === "bombs") {
         for (let i = -1; i <= 1; i++) {
+          if (index / wide < 1 && i === -1) continue;
+          if (index / wide >= wide-1 && i === 1) continue;
           for (let j = -1; j <= 1; j++) {
             if (index % wide === 0 && j === -1) continue;
             if (index % wide === wide-1 && j === 1) continue;
@@ -21,7 +23,7 @@ const Game = ({ wide, bombs, setResult, setCheckResult }) => {
   };
 
   const generateRandomNumbers = (range, count, board) => {
-    const numbers = Array.from({ length: range }, (_, index) => index + 1);
+    const numbers = Array.from({ length: range }, (_, index) => index);
     const randomNumbers = [];
 
     for (let i = 0; i < count; i++) {
