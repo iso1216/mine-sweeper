@@ -73,13 +73,13 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
       }
     } else if (event.button === 2) {
       event.preventDefault(); // デフォルトのコンテキストメニューを非表示にする
-
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
       if (newBoard[i] === "flg") {
         setCounter(counter-1);
         newBoard[i] = null;
         newOpen[i] = false;
       } else {
+        if (counter===bombs) return;
         setCounter(counter+1);
         newBoard[i] = "flg";
         newOpen[i] = true;
