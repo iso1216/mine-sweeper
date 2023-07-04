@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Board from "./Board";
 
-const Game = ({ wide, bombs, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, setTime }) => {
+const Game = ({ wide, bombs, setResult, setView, isTimerRunning, setIsTimerRunning, setTime }) => {
   const [board, setBoard] = useState(Array(wide ** 2).fill(0));
   const [isSet, setIsSet] = useState(false);
 
@@ -48,7 +48,7 @@ const Game = ({ wide, bombs, setResult, setCheckResult, isTimerRunning, setIsTim
 
   const viewBoard = () => {
     return <Board wide={wide} board={board}
-    setResult={setResult} setCheckResult={setCheckResult}
+    setResult={setResult} setView={setView}
     isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
     setTime={setTime} bombs={bombs} />;
   };

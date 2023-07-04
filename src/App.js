@@ -6,7 +6,6 @@ function App() {
   const [bombs, setBombs] = useState(null);
   const [view, setView] = useState(true);
   const [result, setResult] = useState(false);
-  const [checkResult, setCheckResult] = useState(false);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
@@ -63,7 +62,7 @@ function App() {
 
   const viewGame = () => {
     return <Game wide={wide} bombs={bombs}
-    setResult={setResult} setCheckResult={setCheckResult}
+    setResult={setResult} setView={setView}
     isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
     setTime={setTime} />;
   };
@@ -71,18 +70,14 @@ function App() {
   const viewResult = ()  => {
     return (
       <div>
-        {checkResult ?
-          <div>
-            <h1 className="title">clear!!!</h1>
-            <div className="timer">クリアタイム: {time}秒</div>
-          </div>
-          : <h1 className="title">gameover</h1>
-}
+        <div>
+          <h1 className="title">clear!!!</h1>
+          <div className="timer">クリアタイム: {time}秒</div>
+        </div>
         <div className="result">
           <button onClick={()=>{
             setView(true);
             setResult(false);
-            setCheckResult(false);
           }}
           className="btn btn-solid"
           >再挑戦</button>

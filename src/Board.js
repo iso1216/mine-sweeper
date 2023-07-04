@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, setTime, bombs}) => {
+const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunning, setTime, bombs}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
   const [wait, setWait] = useState(false);
+  const [viewRetry, setViewRetry] = useState(false);
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -11,11 +12,10 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
       setWait(true);
       stopTimer();
       setTimeout(()=>{
-        setCheckResult(true);
         setResult(true);
       },1000);
     }
-  }, [boardState, setCheckResult, setResult]);
+  }, [boardState, setResult]);
 
   const stopTimer = () => {
     setIsTimerRunning(false);
@@ -32,12 +32,23 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
     return () => clearInterval(interval);
   }, [isTimerRunning]);
 
-  const handleGameOver = () => {
+  const viewBombs = (newBoard, newOpen) => {
+    for (let i = 0; i < board.length; i++){
+      if (board[i] === 'bombs' && newBoard[i] !== 'flg'){
+        newBoard[i] = board[i];
+        newOpen[i] = true;
+      } else if (board[i] === 'bombs' && newBoard[i] === 'flg'){
+        newBoard[i] = 'hit';
+      }
+    }
+    setBoardState(newBoard);
+    setOpen(newOpen);
+  }
+
+  const handleGameOver = (newBoard, newOpen) => {
     setWait(true);
-    setTimeout(() => {
-      console.log("Game Over");
-      setResult(true);
-    }, 2000);
+    viewBombs(newBoard, newOpen);
+    setViewRetry(true);
   };
 
   const whichClass = (i) => {
@@ -48,6 +59,7 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
     else if (boardState[i] === 4) return "four box";
     else if (boardState[i] === "flg") return "flg empty box";
     else if (boardState[i] === "bombs") return "bombs box";
+    else if (boardState[i] === "hit") return "flg hit box";
     else return "others box";
   };
 
@@ -60,7 +72,8 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
 
       if (board[i] === "bombs") {
-        handleGameOver();
+        handleGameOver(newBoard, newOpen);
+        return;
       }
 
       newBoard[i] = board[i];
@@ -124,7 +137,7 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
   };
 
   const viewBox = (i) => {
-    if (boardState[i] === "flg" || boardState[i] === "bombs") return;
+    if (boardState[i] === "flg" || boardState[i] === "bombs" || boardState[i] === "hit") return;
     else return boardState[i];
   }
 
@@ -153,6 +166,13 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
         <div className="flg"></div>
         <div>現在：{counter}</div>
       </div>
+      {viewRetry ? 
+      <div className="retry">
+        <div>
+          <button onClick={()=>{setView(true)}}>リトライ</button>
+        </div>
+      </div> : <></>
+      }
       <div className="board-container">
       <div>
         {edge.map((index) => (
