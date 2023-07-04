@@ -50,7 +50,7 @@ const Game = ({ wide, bombs, setResult, setCheckResult, isTimerRunning, setIsTim
     return <Board wide={wide} board={board}
     setResult={setResult} setCheckResult={setCheckResult}
     isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
-    setTime={setTime} />;
+    setTime={setTime} bombs={bombs} />;
   };
 
   return <div>{isSet ? viewBoard() : setBombs()}</div>;

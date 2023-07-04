@@ -178,8 +178,20 @@ ul li, ol li {
 
 .count {
   position: absolute;
+  top: 50px;
+  right: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.bomb-count {
+  position: absolute;
   top: 0;
-  right: 0;
+  right: 100px;
   display: flex;
   align-items: center;
   justify-content: center;

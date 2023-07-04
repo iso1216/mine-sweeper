@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, setTime}) => {
+const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTimerRunning, setTime, bombs}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
   const [wait, setWait] = useState(false);
@@ -145,6 +145,10 @@ const Board = ({ wide, board, setResult, setCheckResult, isTimerRunning, setIsTi
 
   return (
     <div>
+      <div className="bomb-count">
+        <div className="bombs"></div>
+        <div>の数{bombs}個</div>
+      </div>
       <div className="count">
         <div className="flg"></div>
         <div>現在：{counter}</div>
