@@ -9,6 +9,10 @@ body {
   background-color: darkseagreen;
 }
 
+.fonts{
+  font-size: 20px;
+}
+
 .box{
   font-family: 'Noto Sans JP', sans-serif;
   float: left;
@@ -224,4 +228,42 @@ ul li, ol li {
 
 .childinfo{
   width: 400px;
+}
+
+.bombsicon{
+  background-image: url(./img/bomb.png);
+  background-size: 42px;
+  width: 50px;
+  height: 50px;
+  border-top: 4px solid tomato;
+  border-right: 4px solid rgb(255, 38, 0);
+  border-bottom: 4px solid rgb(255, 38, 0);
+  border-left: 4px solid tomato;
+  border-radius: 0;
+}
+
+.flgicon{
+  background-image: url(./img/flg.png);
+  background-size: 42px;
+  width: 50px;
+  height: 50px;
+  border-top: 4px solid tomato;
+  border-right: 4px solid rgb(255, 38, 0);
+  border-bottom: 4px solid rgb(255, 38, 0);
+  border-left: 4px solid tomato;
+  border-radius: 0;
+}
+
+.bombs-icon{
+  background-image: url(./img/bomb.png);
+  background-size: 40px;
+  width: 44px;
+  height: 44px;
+}
+
+.flg-icon{
+  background-image: url(./img/flg.png);
+  background-size: 40px;
+  width: 44px;
+  height: 44px;
 }

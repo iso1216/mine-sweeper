@@ -48,11 +48,12 @@ function App() {
         </div>
         <div className="info">
           <div className="childinfo">
-            <h2>難易度選択</h2>
+            <h2 className="fonts">ルール説明</h2>
             <ul>
             <li>簡単：10×10マスで爆弾15個</li>
             <li>普通：13×13マスで爆弾30個</li>
             <li>難しい：16×16マスで爆弾50個</li>
+            <li>右上の赤い枠で囲まれたボタンを押すことで<br/>爆弾と旗を切り替えられます。</li>
             </ul>
           </div>
         </div>

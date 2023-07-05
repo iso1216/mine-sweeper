@@ -6,6 +6,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   const [wait, setWait] = useState(false);
   const [viewRetry, setViewRetry] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [checkFlg, setCheckFlg] = useState(true);
 
   useEffect(() => {
     if (!boardState.includes(null)){
@@ -68,7 +69,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     const newBoard = [...boardState];
     const newOpen = [...open];
 
-    if (event.button === 0) {
+    if (event.button === 0 && checkFlg) {
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
 
       if (board[i] === "bombs") {
@@ -84,7 +85,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
       if (board[i] === 0) {
         revealAdjacentCells(i, newBoard, newOpen);
       }
-    } else if (event.button === 2) {
+    } else if (event.button === 2 || !checkFlg) {
       event.preventDefault(); // デフォルトのコンテキストメニューを非表示にする
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
       if (newBoard[i] === "flg") {
@@ -159,19 +160,24 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   return (
     <div>
       <div className="bomb-count">
-        <div className="bombs"></div>
+        <div className="bombs-icon"></div>
         <div>の数{bombs}個</div>
       </div>
       <div className="count">
-        <div className="flg"></div>
+        <div className="flg-icon"></div>
         <div>現在：{counter}</div>
       </div>
       {viewRetry ? 
       <div className="retry">
         <div>
-          <button onClick={()=>{setView(true)}}>リトライ</button>
+          <button onClick={()=>{setView(true)}} className="btn btn-radius-solid btn--shadow">リトライ</button>
         </div>
-      </div> : <></>
+      </div> : 
+      <div className="retry">
+        <div>
+          <button onClick={() => {setCheckFlg(!checkFlg)}} className={ checkFlg ? "bombsicon" : "flgicon" }></button>
+        </div>
+      </div>
       }
       <div className="board-container">
       <div>
