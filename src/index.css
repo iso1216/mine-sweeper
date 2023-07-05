@@ -25,7 +25,7 @@
   
   .bombs{
     background-image: url(./img/bomb.png);
-    background-size: 13px;
+    background-size: 15px;
     width: 18px;
     height: 18px;
   }
