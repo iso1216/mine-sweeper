@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Game from "./Game";
 
 function App() {
-  const [wide, setWide] = useState(null);
-  const [bombs, setBombs] = useState(null);
+  const [wide, setWide] = useState(1);
+  const [bombs, setBombs] = useState(0);
   const [view, setView] = useState(true);
   const [result, setResult] = useState(false);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [viewCuntom, setViewCustom] = useState(false);
 
   const startTimer = () => {
     setIsTimerRunning(true);
@@ -24,12 +25,47 @@ function App() {
       setWide(13);
       setBombs(30);
       setView(false);
-    } else {
+    } else if (difficulty === "hard") {
       setWide(16);
       setBombs(50);
       setView(false);
+    } else {
+      setView(false);
+      setViewCustom(true);
     }
   };
+
+  const viewCuntomSet = () => {
+    return (
+      <div className="customize">
+        <input
+          type="range"
+          min="1"
+          max="20"
+          value={wide}
+          onChange={(e) => {
+            setWide(e.target.value)
+            setBombs(1)
+          }}
+          className="range"
+        />
+        <p className="fonts">縦{wide}マス×横{wide}マス（最大20）</p>
+        <input
+          type="range"
+          min="1"
+          max={parseInt(wide**2/3)}
+          value={bombs}
+          onChange={(e) => setBombs(e.target.value)}
+          className="range"
+        />
+        <p className="fonts">爆弾の数：{bombs} (最大{parseInt(wide**2/3)}個)</p>
+        <button
+          onClick={()=>setViewCustom(false)}
+          className="btn btn-radius-solid btn--shadow"
+        >プレイ開始！！！</button>
+      </div>
+    )
+  }
 
   const viewGamemode = () => {
     return (
@@ -45,6 +81,9 @@ function App() {
           <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("hard")}>
             難しい
           </button>
+          <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("custom")}>
+            自分で設定
+          </button>
         </div>
         <div className="info">
           <div className="childinfo">
@@ -53,6 +92,8 @@ function App() {
             <li>簡単：10×10マスで爆弾15個</li>
             <li>普通：13×13マスで爆弾30個</li>
             <li>難しい：16×16マスで爆弾50個</li>
+            <li>自分で設定：幅と爆弾の数を自分で設定できます。</li>
+            <li>左クリックでマスを開き、右クリックで旗を設置できます。</li>
             <li>右上の赤い枠で囲まれたボタンを押すことで<br/>爆弾と旗を切り替えられます。</li>
             </ul>
           </div>
@@ -89,7 +130,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewGame()}</div>
+      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewCuntom ? viewCuntomSet() : viewGame()}</div>
     </div>
   );
 }

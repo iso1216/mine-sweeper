@@ -161,19 +161,19 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     <div>
       <div className="bomb-count">
         <div className="bombs-icon"></div>
-        <div>の数{bombs}個</div>
+        <div>の数：{bombs}個</div>
       </div>
       <div className="count">
         <div className="flg-icon"></div>
-        <div>現在：{counter}</div>
+        <div>現在：{counter}個</div>
       </div>
       {viewRetry ? 
       <div className="retry">
         <div>
-          <button onClick={()=>{setView(true)}} className="btn btn-radius-solid btn--shadow">リトライ</button>
+          <button onClick={()=>{setView(true)}} className="btn-retry btn-radius-solid btn--shadow">リトライ</button>
         </div>
       </div> : 
-      <div className="retry">
+      <div className="icon">
         <div>
           <button onClick={() => {setCheckFlg(!checkFlg)}} className={ checkFlg ? "bombsicon" : "flgicon" }></button>
         </div>

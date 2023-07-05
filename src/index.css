@@ -188,7 +188,7 @@ ul li, ol li {
 .count {
   position: absolute;
   top: 50px;
-  right: 105px;
+  right: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,7 +200,7 @@ ul li, ol li {
 .bomb-count {
   position: absolute;
   top: 0;
-  right: 100px;
+  right: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,6 +217,26 @@ ul li, ol li {
   padding: 10px;
 }
 
+.icon{
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+  padding: 10px;
+}
+
+.btn-retry {
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 10px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  position: relative;
+  padding: 0.5rem 2rem;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
 .gamemode{
   text-align: center;
 }
@@ -227,14 +247,14 @@ ul li, ol li {
 }
 
 .childinfo{
-  width: 400px;
+  width: 450px;
 }
 
 .bombsicon{
   background-image: url(./img/bomb.png);
-  background-size: 42px;
-  width: 50px;
-  height: 50px;
+  background-size: 38px;
+  width: 45px;
+  height: 45px;
   border-top: 4px solid tomato;
   border-right: 4px solid rgb(255, 38, 0);
   border-bottom: 4px solid rgb(255, 38, 0);
@@ -244,9 +264,9 @@ ul li, ol li {
 
 .flgicon{
   background-image: url(./img/flg.png);
-  background-size: 42px;
-  width: 50px;
-  height: 50px;
+  background-size: 38px;
+  width: 45px;
+  height: 45px;
   border-top: 4px solid tomato;
   border-right: 4px solid rgb(255, 38, 0);
   border-bottom: 4px solid rgb(255, 38, 0);
@@ -266,4 +286,12 @@ ul li, ol li {
   background-size: 40px;
   width: 44px;
   height: 44px;
+}
+
+.customize{
+  text-align: center;
+}
+
+.range{
+  width: 400px;
 }
