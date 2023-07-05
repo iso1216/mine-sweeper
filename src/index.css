@@ -1,5 +1,104 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
+
+@media (max-width: 519px) {
+  .box{
+    font-family: 'Noto Sans JP', sans-serif;
+    float: left;
+    height: 18px;
+    padding: 0;
+    text-align: center;
+    width: 18px;
+    border: outset;
+  }
+  
+  .empty{
+    background: rgb(184, 183, 183);
+  }
+  
+  .flg{
+    background-image: url(./img/flg.png);
+    background-size: 15px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .bombs{
+    background-image: url(./img/bomb.png);
+    background-size: 13px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .range{
+    width: 200px;
+  }
+}
+
+@media (min-width: 520px) {
+  .box{
+    font-family: 'Noto Sans JP', sans-serif;
+    float: left;
+    height: 25px;
+    padding: 0;
+    text-align: center;
+    width: 25px;
+    border: outset;
+  }
+  
+  .empty{
+    background: rgb(184, 183, 183);
+  }  
+
+  .flg{
+    background-image: url(./img/flg.png);
+    background-size: 20px;
+    width: 25px;
+    height: 25px;
+  }
+  
+  .bombs{
+    background-image: url(./img/bomb.png);
+    background-size: 20px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .range{
+    width: 400px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .box{
+    font-family: 'Noto Sans JP', sans-serif;
+    float: left;
+    height: 33px;
+    padding: 0;
+    text-align: center;
+    width: 33px;
+    border: outset;
+  }
+  
+  .flg{
+    background-image: url(./img/flg.png);
+    background-size: 30px;
+    width: 33px;
+    height: 33px;
+  }
+  
+  .bombs{
+    background-image: url(./img/bomb.png);
+    background-size: 30px;
+    width: 33px;
+    height: 33px;
+  }
+
+  .range{
+    width: 400px;
+  }
+}
+
 html {
   font-size: 70%;
 }
@@ -13,36 +112,8 @@ body {
   font-size: 20px;
 }
 
-.box{
-  font-family: 'Noto Sans JP', sans-serif;
-  float: left;
-  height: 25px;
-  padding: 0;
-  text-align: center;
-  width: 25px;
-  border: outset;
-}
-
 .hit{
   background-color: yellow;
-}
-
-.empty{
-  background: rgb(184, 183, 183);
-}
-
-.flg{
-  background-image: url(./img/flg.png);
-  background-size: 20px;
-  width: 25px;
-  height: 25px;
-}
-
-.bombs{
-  background-image: url(./img/bomb.png);
-  background-size: 20px;
-  width: 25px;
-  height: 25px;
 }
 
 .zero{
@@ -292,8 +363,4 @@ ul li, ol li {
 
 .customize{
   text-align: center;
-}
-
-.range{
-  width: 400px;
 }

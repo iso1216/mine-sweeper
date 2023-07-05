@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Game from "./Game";
 
 function App() {
-  const [wide, setWide] = useState(1);
-  const [bombs, setBombs] = useState(0);
+  const [wide, setWide] = useState(2);
+  const [bombs, setBombs] = useState(1);
   const [view, setView] = useState(true);
   const [result, setResult] = useState(false);
   const [time, setTime] = useState(0);
@@ -40,7 +40,7 @@ function App() {
       <div className="customize">
         <input
           type="range"
-          min="1"
+          min="2"
           max="20"
           value={wide}
           onChange={(e) => {
@@ -94,7 +94,7 @@ function App() {
             <li>難しい：16×16マスで爆弾50個</li>
             <li>自分で設定：幅と爆弾の数を自分で設定できます。</li>
             <li>左クリックでマスを開き、右クリックで旗を設置できます。</li>
-            <li>右上の赤い枠で囲まれたボタンを押すことで<br/>爆弾と旗を切り替えられます。</li>
+            <li>右下のボタンを押すことで、旗モードを切り替えられます。<br/><span><small>※赤色の枠の時が旗モード</small></span></li>
             </ul>
           </div>
         </div>
