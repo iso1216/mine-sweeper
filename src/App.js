@@ -113,7 +113,7 @@ function App() {
     return (
       <div>
         <div>
-          <h1 className="title">clear!!!</h1>
+          <div className="clearbox"><h1 className="gameclear">GAME CLEAR!!!</h1></div>
           <div className="timer">クリアタイム: {time}秒</div>
         </div>
         <div className="result">
@@ -122,7 +122,7 @@ function App() {
             setResult(false);
           }}
           className="btn btn-solid"
-          >再挑戦</button>
+          >タイトルに戻る</button>
         </div>
       </div>
     );
