@@ -250,15 +250,17 @@ ul li, ol li {
   width: 450px;
 }
 
-.bombsicon{
-  background-image: url(./img/bomb.png);
+.noneicon{
+  background-image: url(./img/flg.png);
+  filter: saturate(0.3);
+  background-color: rgba(128, 128, 128, 0.598);
   background-size: 38px;
   width: 45px;
   height: 45px;
-  border-top: 4px solid tomato;
-  border-right: 4px solid rgb(255, 38, 0);
-  border-bottom: 4px solid rgb(255, 38, 0);
-  border-left: 4px solid tomato;
+  border-top: 4px solid yellow;
+  border-right: 4px solid yellowgreen;
+  border-bottom: 4px solid yellowgreen;
+  border-left: 4px solid yellow;
   border-radius: 0;
 }
 

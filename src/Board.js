@@ -175,7 +175,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
       </div> : 
       <div className="icon">
         <div>
-          <button onClick={() => {setCheckFlg(!checkFlg)}} className={ checkFlg ? "bombsicon" : "flgicon" }></button>
+          <button onClick={() => {setCheckFlg(!checkFlg)}} className={ checkFlg ? "noneicon" : "flgicon" }></button>
         </div>
       </div>
       }
