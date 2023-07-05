@@ -70,7 +70,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     const newOpen = [...open];
 
     if (event.button === 0 && checkFlg) {
-      if (newBoard[i] !== null && newBoard[i] !== "flg") return;
+      if ((newBoard[i] !== null && newBoard[i] !== "flg") || newBoard[i] === 'flg') return;
 
       if (board[i] === "bombs") {
         handleGameOver(newBoard, newOpen);
