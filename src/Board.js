@@ -14,7 +14,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     const newBoard = [...boardState];
     const newOpen = [...open];
 
-    if ((event === "open" && checkFlg) || (event.button === 0 && !checkFlg)) {
+    if ((event === "open" && checkFlg) || (event.button === 0 && checkFlg)) {
       if ((newBoard[i] !== null && newBoard[i] !== "flg") || newBoard[i] === 'flg') return;
 
       if (board[i] === "bombs") {
