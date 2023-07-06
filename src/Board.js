@@ -7,6 +7,74 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   const [viewRetry, setViewRetry] = useState(false);
   const [counter, setCounter] = useState(0);
   const [checkFlg, setCheckFlg] = useState(true);
+  const [current, setCurrent] = useState(0);
+
+  const handleMouseDown = (event, i) => {
+    if (wait) return;
+    const newBoard = [...boardState];
+    const newOpen = [...open];
+
+    if ((event === "open" && checkFlg) || (event.button === 0 && !checkFlg)) {
+      if ((newBoard[i] !== null && newBoard[i] !== "flg") || newBoard[i] === 'flg') return;
+
+      if (board[i] === "bombs") {
+        handleGameOver(newBoard, newOpen);
+        return;
+      }
+
+      newBoard[i] = board[i];
+      newOpen[i] = true;
+      setBoardState(newBoard);
+      setOpen(newOpen);
+
+      if (board[i] === 0) {
+        revealAdjacentCells(i, newBoard, newOpen);
+      }
+    } else if (event.button === 2 || !checkFlg || event === 'flg') {
+      if (event.button === 2)event.preventDefault();
+      if (newBoard[i] !== null && newBoard[i] !== "flg") return;
+      if (newBoard[i] === "flg") {
+        setCounter(counter-1);
+        newBoard[i] = null;
+        newOpen[i] = false;
+      } else {
+        if (counter===bombs) return;
+        setCounter(counter+1);
+        newBoard[i] = "flg";
+        newOpen[i] = true;
+      }
+      setBoardState(newBoard);
+      setOpen(newOpen);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "f"){
+        setCheckFlg(!checkFlg);
+      } else if (event.key === "ArrowUp") {
+        if (current / wide < 1) return;
+        setCurrent(current - wide);
+      } else if (event.key === "ArrowDown") {
+        if (current / wide >= wide - 1) return;
+        setCurrent(current + wide);
+      } else if (event.key === "ArrowLeft") {
+        if (current  === 0) return;
+        setCurrent(current - 1);
+      } else if (event.key === "ArrowRight") {
+        if (current  === wide**2 - 1) return;
+        setCurrent(current + 1);
+      } else if (event.key === " ") {
+        handleMouseDown(checkFlg ? "open" : "flg", current);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+  
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [current, checkFlg, handleMouseDown]);  
 
   useEffect(() => {
     if (!boardState.includes(null)){
@@ -53,54 +121,19 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   };
 
   const whichClass = (i) => {
-    if (boardState[i] === 0) return "zero box";
-    else if (boardState[i] === 1) return "one box";
-    else if (boardState[i] === 2) return "two box";
-    else if (boardState[i] === 3) return "three box";
-    else if (boardState[i] === 4) return "four box";
-    else if (boardState[i] === "flg") return "flg empty box";
-    else if (boardState[i] === "bombs") return "bombs box";
-    else if (boardState[i] === "hit") return "flg hit box";
+    let className = "box ";
+    if (i === current) className += "current ";
+    if (!open[i]) return className + "empty"
+    if (boardState[i] === 0) className += "zero";
+    else if (boardState[i] === 1) className += "one";
+    else if (boardState[i] === 2) className += "two";
+    else if (boardState[i] === 3) className += "three";
+    else if (boardState[i] === 4) className += "four";
+    else if (boardState[i] === "flg") className += "flg empty";
+    else if (boardState[i] === "bombs") className += "bombs";
+    else if (boardState[i] === "hit") className += "flg hit";
     else return "others box";
-  };
-
-  const handleMouseDown = (event, i) => {
-    if (wait) return;
-    const newBoard = [...boardState];
-    const newOpen = [...open];
-
-    if (event.button === 0 && checkFlg) {
-      if ((newBoard[i] !== null && newBoard[i] !== "flg") || newBoard[i] === 'flg') return;
-
-      if (board[i] === "bombs") {
-        handleGameOver(newBoard, newOpen);
-        return;
-      }
-
-      newBoard[i] = board[i];
-      newOpen[i] = true;
-      setBoardState(newBoard);
-      setOpen(newOpen);
-
-      if (board[i] === 0) {
-        revealAdjacentCells(i, newBoard, newOpen);
-      }
-    } else if (event.button === 2 || !checkFlg) {
-      event.preventDefault(); // デフォルトのコンテキストメニューを非表示にする
-      if (newBoard[i] !== null && newBoard[i] !== "flg") return;
-      if (newBoard[i] === "flg") {
-        setCounter(counter-1);
-        newBoard[i] = null;
-        newOpen[i] = false;
-      } else {
-        if (counter===bombs) return;
-        setCounter(counter+1);
-        newBoard[i] = "flg";
-        newOpen[i] = true;
-      }
-      setBoardState(newBoard);
-      setOpen(newOpen);
-    }
+    return className;
   };
 
   const revealAdjacentCells = (index, newBoard, newOpen) => {
@@ -146,7 +179,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     return (
       <button
         key={i}
-        className={open[i] ? whichClass(i) : "empty box"}
+        className={whichClass(i)}
         onMouseDown={(event) => handleMouseDown(event, i)}
         onContextMenu={(event) => event.preventDefault()} // デフォルトのコンテキストメニューを非表示にする
       >

@@ -39,6 +39,7 @@
   .title{
     text-align: center;
     font-size: 40px;
+    margin: 0;
   } 
 }
 
@@ -92,6 +93,10 @@
     border: outset;
   }
   
+  .current{
+    border: outset #f16767;
+  }
+
   .flg{
     background-image: url(./img/flg.png);
     background-size: 30px;
@@ -209,7 +214,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
   position: relative;
-  padding: 1rem 4rem;
+  padding: 1rem 2rem;
   letter-spacing: 0.1em;
   color: #212529;
   border-radius: 0.5rem;
