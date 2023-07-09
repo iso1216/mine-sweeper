@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunning, setTime, bombs}) => {
+const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunning, setTime, bombs, time}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
   const [open, setOpen] = useState(Array(wide ** 2).fill(false));
   const [wait, setWait] = useState(false);
@@ -117,6 +117,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   const handleGameOver = (newBoard, newOpen) => {
     setWait(true);
     viewBombs(newBoard, newOpen);
+    stopTimer();
     setViewRetry(true);
   };
 
@@ -203,6 +204,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
       {viewRetry ? 
       <div className="retry">
         <div>
+          <p className="retrytime">経過時間{time}秒</p>
           <button onClick={()=>{setView(true)}} className="btn-retry btn-radius-solid btn--shadow">リトライ</button>
         </div>
       </div> : 

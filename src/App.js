@@ -107,7 +107,7 @@ function App() {
     return <Game wide={wide} bombs={bombs}
     setResult={setResult} setView={setView}
     isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
-    setTime={setTime} />;
+    setTime={setTime} time={time} />;
   };
 
   const viewResult = ()  => {

@@ -398,3 +398,8 @@ ul li, ol li {
   display: flex;
   justify-content: center;
 }
+
+.retrytime{
+  font-size: 20px;
+  margin: 0;
+}
