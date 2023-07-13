@@ -11,7 +11,6 @@ function App() {
   const [viewCustom, setViewCustom] = useState(false);
   const [currentmode, setCurrentmode] = useState(0);
   const difficult = ["easy", "normal", "hard", "custom"];
-  const [numCustom, setNumCustom] = useState(true);
 
   const difficultySet = (difficulty) => {
     startTimer();
@@ -59,7 +58,7 @@ function App() {
         if (event.key === " ") {
           setViewCustom(false);
         }
-      }
+      } else return;
     };
 
     document.addEventListener("keydown", handleKeyPress);
@@ -67,7 +66,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [view, result, viewCustom, currentmode, wide, bombs, numCustom, difficultySet, setView, setResult, setNumCustom, setCurrentmode, setWide, setBombs]);
+  }, [view, result, viewCustom, currentmode, wide, bombs, difficultySet, setView, setResult, setCurrentmode, setWide, setBombs]);
 
   const startTimer = () => {
     setIsTimerRunning(true);
@@ -84,7 +83,7 @@ function App() {
           max="20"
           value={wide}
           onChange={(e) => {
-            setWide(e.target.value)
+            setWide(Number(e.target.value))
             setBombs(1)
           }}
           className="range"
@@ -95,7 +94,7 @@ function App() {
           min="1"
           max={parseInt(wide**2/3)}
           value={bombs}
-          onChange={(e) => setBombs(e.target.value)}
+          onChange={(e) => setBombs(Number(e.target.value))}
           className="range"
         />
         <p className="fonts">爆弾の数：{bombs} (最大{parseInt(wide**2/3)}個)</p>
