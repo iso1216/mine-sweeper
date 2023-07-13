@@ -8,9 +8,10 @@ function App() {
   const [result, setResult] = useState(false);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [viewCuntom, setViewCustom] = useState(false);
+  const [viewCustom, setViewCustom] = useState(false);
   const [currentmode, setCurrentmode] = useState(0);
   const difficult = ["easy", "normal", "hard", "custom"];
+  const [numCustom, setNumCustom] = useState(true);
 
   const difficultySet = (difficulty) => {
     startTimer();
@@ -34,25 +35,39 @@ function App() {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (!view)return;
-      if (event.key === "ArrowLeft") {
-        if (currentmode === 0) return;
-        setCurrentmode(currentmode - 1);
-      } else if (event.key === "ArrowRight") {
-        if (currentmode === 3) return;
-        setCurrentmode(currentmode + 1);
-      } else if (event.key === " ") {
-        difficultySet(difficult[currentmode]);
+      if (view) {
+        if (event.key === "ArrowLeft") {
+          if (currentmode === 0) return;
+          setCurrentmode(currentmode - 1);
+        } else if (event.key === "ArrowRight") {
+          if (currentmode === 3) return;
+          setCurrentmode(currentmode + 1);
+        } else if (event.key === " ") {
+          if (result) {
+            setView(true);
+            setResult(false);
+          } else {
+            difficultySet(difficult[currentmode]);
+          }
+        }
+      } else if (result) {
+        if (event.key === " ") {
+          setView(true);
+          setResult(false);
+        }
+      } else if (viewCustom) {
+        if (event.key === " ") {
+          setViewCustom(false);
+        }
       }
     };
 
     document.addEventListener("keydown", handleKeyPress);
-  
+
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [currentmode, setCurrentmode, difficultySet, view]);  
-
+  }, [view, result, viewCustom, currentmode, wide, bombs, numCustom, difficultySet, setView, setResult, setNumCustom, setCurrentmode, setWide, setBombs]);
 
   const startTimer = () => {
     setIsTimerRunning(true);
@@ -164,7 +179,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewCuntom ? viewCuntomSet() : viewGame()}</div>
+      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewCustom ? viewCuntomSet() : viewGame()}</div>
     </div>
   );
 }
