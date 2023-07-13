@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Game from "./Game";
 
 function App() {
@@ -9,11 +9,8 @@ function App() {
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [viewCuntom, setViewCustom] = useState(false);
-
-  const startTimer = () => {
-    setIsTimerRunning(true);
-    setTime(0);
-  };
+  const [currentmode, setCurrentmode] = useState(0);
+  const difficult = ["easy", "normal", "hard", "custom"];
 
   const difficultySet = (difficulty) => {
     startTimer();
@@ -34,6 +31,34 @@ function App() {
       setViewCustom(true);
     }
   };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (!view)return;
+      if (event.key === "ArrowLeft") {
+        if (currentmode === 0) return;
+        setCurrentmode(currentmode - 1);
+      } else if (event.key === "ArrowRight") {
+        if (currentmode === 3) return;
+        setCurrentmode(currentmode + 1);
+      } else if (event.key === " ") {
+        difficultySet(difficult[currentmode]);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+  
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [currentmode, setCurrentmode, difficultySet, view]);  
+
+
+  const startTimer = () => {
+    setIsTimerRunning(true);
+    setTime(0);
+  };
+
 
   const viewCuntomSet = () => {
     return (
@@ -72,16 +97,24 @@ function App() {
       <div>
         <h1 className="title">マインスイーパー</h1>
         <div className="gamemode">
-          <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("easy")}>
+          <button
+            className={currentmode===0 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
+            onClick={() => difficultySet("easy")}>
             簡単
           </button>
-          <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("normal")}>
+          <button
+            className={currentmode===1 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
+            onClick={() => difficultySet("normal")}>
             普通
           </button>
-          <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("hard")}>
+          <button
+            className={currentmode===2 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
+            onClick={() => difficultySet("hard")}>
             難しい
           </button>
-          <button className="btn btn-radius-solid btn--shadow" onClick={() => difficultySet("custom")}>
+          <button
+            className={currentmode===3 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
+            onClick={() => difficultySet("custom")}>
             自分で設定
           </button>
         </div>

@@ -65,6 +65,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
         if (current  === wide**2 - 1) return;
         setCurrent(current + 1);
       } else if (event.key === " ") {
+        if (viewRetry) setView(true);
         handleMouseDown(checkFlg ? "open" : "flg", current);
       }
     };
