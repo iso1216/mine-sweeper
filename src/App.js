@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CustomSet from "./CustomSet";
-import GameMode from "./GameMode";
+import CustomSet from "./components/CustomSet";
+import GameMode from "./components/GameMode";
 import Game from "./Game";
-import Result from "./Result";
+import Result from "./components/Result";
 
 const App = () => {
   const [wide, setWide] = useState(2);

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Box from "./Box";
-import BombCount from "./BombCount";
-import FlgCounter from "./FlgCounter";
-import Retry from "./Retry";
-import FlgIcon from "./FlgIcon";
+import Box from "./components/Box";
+import BombCount from "./components/BombCount";
+import FlgCounter from "./components/FlgCounter";
+import Retry from "./components/Retry";
+import FlgIcon from "./components/FlgIcon";
 
 const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunning, setTime, bombs, time}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
