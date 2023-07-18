@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Box from "./Box";
+import BombCount from "./BombCount";
+import FlgCounter from "./FlgCounter";
+import Retry from "./Retry";
+import FlgIcon from "./FlgIcon";
 
 const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunning, setTime, bombs, time}) => {
   const [boardState, setBoardState] = useState(Array(wide ** 2).fill(null));
@@ -14,9 +19,10 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     const newBoard = [...boardState];
     const newOpen = [...open];
 
-    if ((event === "open" && checkFlg) || (event.button === 0 && checkFlg)) {
-      if ((newBoard[i] !== null && newBoard[i] !== "flg") || newBoard[i] === 'flg') return;
-
+    if ((event === "open" && checkFlg) ||
+      (event.button === 0 && checkFlg)) {
+      if ((newBoard[i] !== null && newBoard[i] !== "flg") ||
+        newBoard[i] === "flg")return;
       if (board[i] === "bombs") {
         handleGameOver(newBoard, newOpen);
         return;
@@ -27,19 +33,17 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
       setBoardState(newBoard);
       setOpen(newOpen);
 
-      if (board[i] === 0) {
-        revealAdjacentCells(i, newBoard, newOpen);
-      }
-    } else if (event.button === 2 || !checkFlg || event === 'flg') {
-      if (event.button === 2)event.preventDefault();
+      if (board[i] === 0) revealAdjacentCells(i, newBoard, newOpen);
+    } else if (event.button === 2 || !checkFlg || event === "flg") {
+      if (event.button === 2) event.preventDefault();
       if (newBoard[i] !== null && newBoard[i] !== "flg") return;
       if (newBoard[i] === "flg") {
-        setCounter(counter-1);
+        setCounter(counter - 1);
         newBoard[i] = null;
         newOpen[i] = false;
       } else {
-        if (counter===bombs) return;
-        setCounter(counter+1);
+        if (counter === bombs) return;
+        setCounter(counter + 1);
         newBoard[i] = "flg";
         newOpen[i] = true;
       }
@@ -50,19 +54,18 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "f"){
-        setCheckFlg(!checkFlg);
-      } else if (event.key === "ArrowUp") {
+      if (event.key === "f") setCheckFlg(!checkFlg);
+      else if (event.key === "ArrowUp") {
         if (current / wide < 1) return;
         setCurrent(current - wide);
       } else if (event.key === "ArrowDown") {
         if (current / wide >= wide - 1) return;
         setCurrent(current + wide);
       } else if (event.key === "ArrowLeft") {
-        if (current  === 0) return;
+        if (current === 0) return;
         setCurrent(current - 1);
       } else if (event.key === "ArrowRight") {
-        if (current  === wide**2 - 1) return;
+        if (current === wide ** 2 - 1) return;
         setCurrent(current + 1);
       } else if (event.key === " ") {
         if (viewRetry) setView(true);
@@ -71,31 +74,27 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     };
 
     document.addEventListener("keydown", handleKeyPress);
-  
-    return () => {
-      document.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [current, checkFlg, handleMouseDown]);  
+
+    return () => document.removeEventListener("keydown", handleKeyPress);
+  }, [current, checkFlg, handleMouseDown]);
 
   useEffect(() => {
-    if (!boardState.includes(null)){
+    if (!boardState.includes(null)) {
       setWait(true);
       stopTimer();
-      setTimeout(()=>{
+      setTimeout(() => {
         setResult(true);
-      },1000);
+      }, 1000);
     }
   }, [boardState, setResult]);
 
-  const stopTimer = () => {
-    setIsTimerRunning(false);
-  };
+  const stopTimer = () => setIsTimerRunning(false);
 
   useEffect(() => {
     let interval;
     if (isTimerRunning) {
       interval = setInterval(() => {
-        setTime((prevTime) => (prevTime*10 + 1)/10);
+        setTime((prevTime) => (prevTime * 10 + 1) / 10);
       }, 100);
     }
 
@@ -103,17 +102,17 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   }, [isTimerRunning]);
 
   const viewBombs = (newBoard, newOpen) => {
-    for (let i = 0; i < board.length; i++){
-      if (board[i] === 'bombs' && newBoard[i] !== 'flg'){
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === "bombs" && newBoard[i] !== "flg") {
         newBoard[i] = board[i];
         newOpen[i] = true;
-      } else if (board[i] === 'bombs' && newBoard[i] === 'flg'){
-        newBoard[i] = 'hit';
+      } else if (board[i] === "bombs" && newBoard[i] === "flg") {
+        newBoard[i] = "hit";
       }
     }
     setBoardState(newBoard);
     setOpen(newOpen);
-  }
+  };
 
   const handleGameOver = (newBoard, newOpen) => {
     setWait(true);
@@ -125,7 +124,7 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   const whichClass = (i) => {
     let className = "box ";
     if (i === current) className += "current ";
-    if (!open[i]) return className + "empty"
+    if (!open[i]) return className + "empty";
     if (boardState[i] === 0) className += "zero";
     else if (boardState[i] === 1) className += "one";
     else if (boardState[i] === 2) className += "two";
@@ -143,23 +142,21 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
     const col = index % wide;
 
     const neighbors = [
-      { row: row - 1, col }, // 上
-      { row: row + 1, col }, // 下
-      { row, col: col - 1 }, // 左
-      { row, col: col + 1 }, // 右
+      { row: row - 1, col },
+      { row: row + 1, col },
+      { row, col: col - 1 },
+      { row, col: col + 1 },
     ];
 
     for (const neighbor of neighbors) {
       const { row, col } = neighbor;
       const neighborIndex = row * wide + col;
 
-      if (
-        row >= 0 &&
+      if (row >= 0 &&
         row < wide &&
         col >= 0 &&
         col < wide &&
-        newBoard[neighborIndex] === null
-      ) {
+        newBoard[neighborIndex] === null) {
         newBoard[neighborIndex] = board[neighborIndex];
         newOpen[neighborIndex] = true;
         if (board[neighborIndex] === 0) {
@@ -173,20 +170,21 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
   };
 
   const viewBox = (i) => {
-    if (boardState[i] === "flg" || boardState[i] === "bombs" || boardState[i] === "hit") return;
+    if ( boardState[i] === "flg" ||
+      boardState[i] === "bombs" ||
+      boardState[i] === "hit" )
+      return;
     else return boardState[i];
-  }
+  };
 
   const renderBox = (i) => {
     return (
-      <button
-        key={i}
-        className={whichClass(i)}
+      <Box
+        key={i} className={whichClass(i)}
         onMouseDown={(event) => handleMouseDown(event, i)}
-        onContextMenu={(event) => event.preventDefault()} // デフォルトのコンテキストメニューを非表示にする
-      >
-        {viewBox(i)}
-      </button>
+        onContextMenu={(event) => event.preventDefault()}
+        content={viewBox(i)}
+      />
     );
   };
 
@@ -194,35 +192,21 @@ const Board = ({ wide, board, setResult, setView, isTimerRunning, setIsTimerRunn
 
   return (
     <div>
-      <div className="bomb-count">
-        <div className="bombs-icon"></div>
-        <div>の数：{bombs}個</div>
-      </div>
-      <div className="count">
-        <div className="flg-icon"></div>
-        <div>現在：{counter}個</div>
-      </div>
-      {viewRetry ? 
-      <div className="retry">
-        <div>
-          <p className="retrytime">経過時間{time}秒</p>
-          <button onClick={()=>{setView(true)}} className="btn-retry btn-radius-solid btn--shadow">リトライ</button>
-        </div>
-      </div> : 
-      <div className="icon">
-        <div>
-          <button onClick={() => {setCheckFlg(!checkFlg)}} className={ checkFlg ? "noneicon" : "flgicon" }></button>
-        </div>
-      </div>
-      }
+      <BombCount bombs={bombs} />
+      <FlgCounter counter={counter} />
+      {viewRetry ? (
+        <Retry time={time} onRetry={() => setView(true)} />
+      ) : (
+        <FlgIcon checkFlg={checkFlg} onToggleFlg={() => setCheckFlg(!checkFlg)} />
+      )}
       <div className="board-container">
-      <div>
-        {edge.map((index) => (
-          <div className="board-row" key={index}>
-            {edge.map((number) => renderBox(number + wide * index))}
-          </div>
-        ))}
-      </div>
+        <div>
+          {edge.map((index) => (
+            <div className="board-row" key={index}>
+              {edge.map((number) => renderBox(number + wide * index))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
