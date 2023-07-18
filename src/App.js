@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import CustomSet from "./CustomSet";
+import GameMode from "./GameMode";
 import Game from "./Game";
+import Result from "./Result";
 
-function App() {
+const App = () => {
   const [wide, setWide] = useState(2);
   const [bombs, setBombs] = useState(1);
   const [view, setView] = useState(true);
@@ -9,8 +12,13 @@ function App() {
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [viewCustom, setViewCustom] = useState(false);
-  const [currentmode, setCurrentmode] = useState(0);
-  const difficult = ["easy", "normal", "hard", "custom"];
+  const [currentMode, setCurrentMode] = useState(0);
+  const difficulties = {
+    easy: "簡単",
+    normal: "普通",
+    hard: "難しい",
+    custom: "自分で設定",
+  };
 
   const difficultySet = (difficulty) => {
     startTimer();
@@ -36,17 +44,17 @@ function App() {
     const handleKeyPress = (event) => {
       if (view) {
         if (event.key === "ArrowLeft") {
-          if (currentmode === 0) return;
-          setCurrentmode(currentmode - 1);
+          if (currentMode === 0) return;
+          setCurrentMode(currentMode - 1);
         } else if (event.key === "ArrowRight") {
-          if (currentmode === 3) return;
-          setCurrentmode(currentmode + 1);
+          if (currentMode === 3) return;
+          setCurrentMode(currentMode + 1);
         } else if (event.key === " ") {
           if (result) {
             setView(true);
             setResult(false);
           } else {
-            difficultySet(difficult[currentmode]);
+            difficultySet(Object.keys(difficulties)[currentMode]);
           }
         }
       } else if (result) {
@@ -66,119 +74,27 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [view, result, viewCustom, currentmode, wide, bombs, difficultySet, setView, setResult, setCurrentmode, setWide, setBombs]);
+  }, [ view, result, viewCustom, currentMode, wide, bombs,
+    difficultySet, setView, setResult, setCurrentMode, setWide, setBombs ]);
 
   const startTimer = () => {
     setIsTimerRunning(true);
     setTime(0);
   };
 
-
-  const viewCuntomSet = () => {
-    return (
-      <div className="customize">
-        <input
-          type="range"
-          min="2"
-          max="20"
-          value={wide}
-          onChange={(e) => {
-            setWide(Number(e.target.value))
-            setBombs(1)
-          }}
-          className="range"
-        />
-        <p className="fonts">縦{wide}マス×横{wide}マス（最大20）</p>
-        <input
-          type="range"
-          min="1"
-          max={parseInt(wide**2/3)}
-          value={bombs}
-          onChange={(e) => setBombs(Number(e.target.value))}
-          className="range"
-        />
-        <p className="fonts">爆弾の数：{bombs} (最大{parseInt(wide**2/3)}個)</p>
-        <button
-          onClick={()=>setViewCustom(false)}
-          className="btn btn-radius-solid btn--shadow"
-        >プレイ開始！！！</button>
-      </div>
-    )
-  }
-
-  const viewGamemode = () => {
-    return (
-      <div>
-        <h1 className="title">マインスイーパー</h1>
-        <div className="gamemode">
-          <button
-            className={currentmode===0 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
-            onClick={() => difficultySet("easy")}>
-            簡単
-          </button>
-          <button
-            className={currentmode===1 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
-            onClick={() => difficultySet("normal")}>
-            普通
-          </button>
-          <button
-            className={currentmode===2 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
-            onClick={() => difficultySet("hard")}>
-            難しい
-          </button>
-          <button
-            className={currentmode===3 ? "btn btn-radius-solid btn--shadow current" : "btn btn-radius-solid btn--shadow"}
-            onClick={() => difficultySet("custom")}>
-            自分で設定
-          </button>
-        </div>
-        <div className="info">
-          <div className="childinfo">
-            <h2 className="fonts">ルール説明</h2>
-            <ul>
-            <li>簡単：10×10マスで爆弾15個</li>
-            <li>普通：13×13マスで爆弾30個</li>
-            <li>難しい：16×16マスで爆弾50個</li>
-            <li>自分で設定：幅と爆弾の数を自分で設定できます。</li>
-            <li>左クリックでマスを開き、右クリックで旗を設置できます。</li>
-            <li>右下のボタンを押すことで、旗モードを切り替えられます。<br/><span><small>※赤色の枠の時が旗モード</small></span></li>
-            <li>キー入力対応<br/>矢印キーで場所を選び、スペースで処理<br/>fキーで旗モードの切り替えができます。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const viewGame = () => {
-    return <Game wide={wide} bombs={bombs}
-    setResult={setResult} setView={setView}
-    isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning}
-    setTime={setTime} time={time} />;
-  };
-
-  const viewResult = ()  => {
-    return (
-      <div>
-        <div>
-          <div className="clearbox"><h1 className="gameclear">GAME CLEAR!!!</h1></div>
-          <div className="timer">クリアタイム: {time}秒</div>
-        </div>
-        <div className="result">
-          <button onClick={()=>{
-            setView(true);
-            setResult(false);
-          }}
-          className="btn btn-solid"
-          >タイトルに戻る</button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="App">
-      <div className="Game">{result ? viewResult() : view ? viewGamemode() : viewCustom ? viewCuntomSet() : viewGame()}</div>
+      <div className="Game">
+        {result ? (
+          <Result time={time} setView={setView} setResult={setResult}/>
+        ) : view ? (
+          <GameMode currentMode={currentMode} difficultySet={difficultySet} difficulties={difficulties}/>
+        ) : viewCustom ? (
+          <CustomSet wide={wide} bombs={bombs} setWide={setWide} setBombs={setBombs} setViewCustom={setViewCustom}/>
+        ) : (
+          <Game wide={wide} bombs={bombs} setResult={setResult} setView={setView} isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning} setTime={setTime} time={time}/>
+        )}
+      </div>
     </div>
   );
 }
