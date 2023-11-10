@@ -33,7 +33,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
   };
 
   return(
-    <Box>
+    <Box width={"100%"}>
       <Box margin={5}>
         <Box sx={{display:"flex", justifyContent:"center"}}>
           <Typography id="input-slider" gutterBottom sx={{marginRight:5.5}}>
