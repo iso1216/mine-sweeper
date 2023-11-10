@@ -23,7 +23,7 @@ const App = () => {
   }
 
   return(
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "90vh", width: "100%"}}>
       {ViweController()}
     </Container>
   );
