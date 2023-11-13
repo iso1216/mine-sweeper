@@ -37,7 +37,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
     if (height < 5) setHeight(5);
     else if (height > 20) setHeight(20);
     if (bombs < 5) setBombs(5);
-    else if (bombs > parseInt(width*height/2)) setBombs(5);
+    else if (bombs > parseInt(width*height/4)) setBombs(5);
   };
 
   return(
@@ -104,7 +104,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
           <Slider
             value={typeof bombs === 'number' ? bombs : 0}
             min={5}
-            max={parseInt(width*height/2)}
+            max={parseInt(width*height/4)}
             onChange={handleBombsChange}
             aria-labelledby="input-slider"
             sx={{width:"60%", marginRight:2}}
@@ -116,7 +116,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
             onBlur={handleBlur}
             inputProps={{
               min: 5,
-              max: parseInt(width*height/2),
+              max: parseInt(width*height/4),
               type: 'number',
               'aria-labelledby': 'input-slider',
             }}
