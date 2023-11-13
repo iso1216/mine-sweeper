@@ -4,7 +4,6 @@ import Start from "./components/Start";
 import SetStatus from "./components/SetStatus";
 import Game from "./components/Game";
 import Result from "./components/Result";
-import Miss from "./components/Miss";
 
 const App = () => {
   const [view, setView] = useState(0);
@@ -18,11 +17,11 @@ const App = () => {
       case 1:
         return <SetStatus setView={setView} setWidth={setWidth} width={width} setHeight={setHeight} height={height} setBombs={setBombs} bombs={bombs} />;
       case 2:
-        return <Game setView={setView} width={width} height={height} bombs={bombs} />;
+        return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} />;
       case 3:
         return <Result setView={setView} />;
       case 4:
-        return <Miss setView={setView} />;
+        return <Game setView={setView} width={width} height={height} view={view} />;
       default:
         break;
     }

@@ -1,13 +1,11 @@
 import { Box, Button } from "@mui/material";
-import { useState } from "react";
 import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
 import { useEffect } from "react";
 
-export default function Board({ width, height, board, setView }) {
+export default function Board({ width, height, board, setView, boardOpen, setBoardOpen }) {
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
-  const [boardOpen, setBoardOpen] = useState(Array(width * height).fill(0));
 
   // クリアチェック
   useEffect(() => {
