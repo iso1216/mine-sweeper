@@ -20,8 +20,6 @@ const App = () => {
         return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} />;
       case 3:
         return <Result setView={setView} />;
-      case 4:
-        return <Game setView={setView} width={width} height={height} view={view} />;
       default:
         break;
     }

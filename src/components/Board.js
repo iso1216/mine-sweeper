@@ -3,7 +3,7 @@ import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
 import { useEffect } from "react";
 
-export default function Board({ width, height, board, setView, boardOpen, setBoardOpen }) {
+export default function Board({ width, height, board, setView, boardOpen, setBoardOpen, bombs, flg, setFlg, setViewMiss }) {
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
 
@@ -27,7 +27,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
           newBoardOpen[i] = 3;
           setBoardOpen(newBoardOpen);    
           setTimeout(() => {
-            setView(4);
+            setViewMiss(1);
           }, 1000);
         } else {
           newBoardOpen[i] = 1;
@@ -37,8 +37,13 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
         }
       }
     } else if (event.button === 2){
-      if (newBoardOpen[i] === 0) newBoardOpen[i] = 2;
-      else if (newBoardOpen[i] === 2) newBoardOpen[i] = 0;
+      if (newBoardOpen[i] === 0 && flg < bombs){
+        newBoardOpen[i] = 2;
+        setFlg(flg+1);
+      } else if (newBoardOpen[i] === 2){
+        newBoardOpen[i] = 0;
+        setFlg(flg-1);
+      }
       setBoardOpen(newBoardOpen);
     }
   };

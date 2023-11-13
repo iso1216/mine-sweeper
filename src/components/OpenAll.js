@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import { Icon } from '@iconify/react';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
-
 export default function OpenAll({board, num, height, boardOpen}) {
   const color = ["black", "blue", "green", "red", "purple"];
 
