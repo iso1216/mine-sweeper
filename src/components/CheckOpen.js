@@ -11,8 +11,8 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: height < 15 ? "45px" : "30px",
-        height: height < 15 ? "45px" : "30px",
+        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: 4,
         borderColor: "#EEE",
@@ -35,8 +35,8 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: height < 15 ? "45px" : "30px",
-        height: height < 15 ? "45px" : "30px",
+        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: 4,
         borderColor: "#EEE",
@@ -57,8 +57,8 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: height < 15 ? "45px" : "30px",
-        height: height < 15 ? "45px" : "30px",
+        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: 4,
         borderColor: "#EEE",
