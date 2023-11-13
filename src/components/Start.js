@@ -3,24 +3,28 @@ import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/mate
 export default function Start({setView, setWidth, setHeight, setBombs}){
   const handleClick = (value) => {
     switch (value){
+      // 難易度簡単
       case 0:
         setWidth(10);
         setHeight(10);
         setBombs(15);
         setView(2);
         break;
+      // 難易度普通
       case 1:
         setWidth(13);
         setHeight(13);
         setBombs(30);
         setView(2);
         break;
+      // 難易度難しい
       case 2:
         setWidth(16);
         setHeight(16);
         setBombs(50);
         setView(2);
         break;
+      // 難易度自分で設定
       case 3:
         setView(1);
         break;

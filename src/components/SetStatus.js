@@ -1,28 +1,36 @@
 import { Box, Button, Input, Slider, Typography } from "@mui/material";
 
 export default function SetStatus({setView, setWidth, width, setHeight, height, setBombs, bombs}){
+  // 横幅設定(スライダー)
   const handleWidthChange = (event,value) => {
     setWidth(value);
     setBombs(5);
   };
+  // 横幅設定(入力)
   const handleInputWidthChange = (event) => {
     setWidth(event.target.value === '' ? 0 : Number(event.target.value));
     setBombs(5);
   };
+  // 縦幅設定(スライダー)
   const handleHeightChange = (event,value) => {
     setHeight(value);
     setBombs(5);
   };
+  // 縦幅設定(入力)
   const handleInputHeightChange = (event) => {
     setHeight(event.target.value === '' ? 0 : Number(event.target.value));
     setBombs(5);
   };
+  // 爆弾設定(スライダー)
   const handleBombsChange = (event,value) => {
     setBombs(value);
   };
+  // 爆弾設定(入力)
   const handleInputBombsChange = (event) => {
     setBombs(event.target.value === '' ? 0 : Number(event.target.value));
   };
+
+  // 入力値チェック
   const handleBlur = () => {
     if (width < 5) setWidth(5);
     else if (width > 20) setWidth(20);
