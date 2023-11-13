@@ -27,10 +27,12 @@ export default function Game({setView, width, height, bombs, view}){
         <Box><EmojiFlagsRoundedIcon fontSize="large" /></Box>
         <Typography fontSize={20}>の数：{flg}個</Typography>
       </Box>
-      {viewMiss ? 
+      {// 画面の選定 
+        viewMiss ? 
         <Miss setView={setView} width={width} height={height} board={board} boardOpen={boardOpen} /> :
         <Board width={width} height={height} board={board} setView={setView} boardOpen={boardOpen} setBoardOpen={setBoardOpen} bombs={bombs} flg={flg} setFlg={setFlg} setViewMiss={setViewMiss} />
       }
+      
     </Box>
   );
 };
