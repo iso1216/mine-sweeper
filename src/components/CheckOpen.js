@@ -5,9 +5,9 @@ import { Icon } from '@iconify/react';
 export default function CheckOpen({boardOpen, board, num, handleChange, height}) {
   const color = ["black", "blue", "green", "red", "purple"];
 
+  // 数字のマス
   const number = () => {
     return <Button
-      key={num}
       sx={{
         minWidth: 0,
         minHeight: 0,
@@ -29,9 +29,9 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
     </Button>
   };
 
+  // 爆弾のマス
   const bombs = () => {
     return <Button
-      key={num}
       sx={{
         minWidth: 0,
         minHeight: 0,
@@ -51,9 +51,9 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
     </Button>
   };
 
+  // 旗のマス
   const flg = () => {
     return <Button
-      key={num}
       sx={{
         minWidth: 0,
         minHeight: 0,
