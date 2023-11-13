@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import OpenAll from "./OpenAll";
 
 export default function Miss({setView, width, height, board, boardOpen}){
@@ -14,6 +14,16 @@ export default function Miss({setView, width, height, board, boardOpen}){
           )}
         </Box>
       ))}
+      <Box className="retry">
+      <Box display={"flex"} justifyContent={"right"}>
+        <Button
+          onClick={()=>setView(0)}
+          sx={{paddingX:2,paddingY:1,margin:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:10,color:"black",border:2}}
+        >
+          リトライ
+        </Button>
+      </Box>
+    </Box>
     </Box>
   );
 };

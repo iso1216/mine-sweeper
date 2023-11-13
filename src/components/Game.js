@@ -32,7 +32,6 @@ export default function Game({setView, width, height, bombs, view}){
         <Miss setView={setView} width={width} height={height} board={board} boardOpen={boardOpen} /> :
         <Board width={width} height={height} board={board} setView={setView} boardOpen={boardOpen} setBoardOpen={setBoardOpen} bombs={bombs} flg={flg} setFlg={setFlg} setViewMiss={setViewMiss} />
       }
-      
     </Box>
   );
 };
