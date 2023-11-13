@@ -1,6 +1,6 @@
 import { Box, Button, List, ListItem, ListItemText, Typography } from "@mui/material";
 
-export default function Start({setView, setWidth, setHeight, setBombs}){
+export default function Start({setView, setWidth, setHeight, setBombs, setTime}){
   const handleClick = (value) => {
     switch (value){
       // 難易度簡単
@@ -9,6 +9,7 @@ export default function Start({setView, setWidth, setHeight, setBombs}){
         setHeight(10);
         setBombs(15);
         setView(2);
+        setTime(0);
         break;
       // 難易度普通
       case 1:
@@ -16,6 +17,7 @@ export default function Start({setView, setWidth, setHeight, setBombs}){
         setHeight(13);
         setBombs(30);
         setView(2);
+        setTime(0);
         break;
       // 難易度難しい
       case 2:
@@ -23,6 +25,7 @@ export default function Start({setView, setWidth, setHeight, setBombs}){
         setHeight(16);
         setBombs(50);
         setView(2);
+        setTime(0);
         break;
       // 難易度自分で設定
       case 3:
