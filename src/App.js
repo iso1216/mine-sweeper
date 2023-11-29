@@ -11,14 +11,21 @@ const App = () => {
   const [height, setHeight] = useState(5);
   const [bombs, setBombs] = useState(5);
   const [time, setTime] = useState(0);
+  const [timer, setTimer] = useState(false);
+
+  const startTimer = () => {
+    setTimer(true);
+    setTime(0);
+  }
+
   const ViweController = () => {
     switch (view) {
       case 0:
-        return <Start setView={setView} setWidth={setWidth} setHeight={setHeight} setBombs={setBombs} setTime={setTime} />;
+        return <Start setView={setView} setWidth={setWidth} setHeight={setHeight} setBombs={setBombs} />;
       case 1:
-        return <SetStatus setView={setView} setWidth={setWidth} width={width} setHeight={setHeight} height={height} setBombs={setBombs} bombs={bombs} setTime={setTime} />;
+        return <SetStatus setView={setView} setWidth={setWidth} width={width} setHeight={setHeight} height={height} setBombs={setBombs} bombs={bombs} />;
       case 2:
-        return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} />;
+        return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} startTimer={startTimer} />;
       case 3:
         return <Result setView={setView} time={time} />;
       default:

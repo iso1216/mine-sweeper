@@ -6,7 +6,7 @@ import Miss from "./Miss";
 import { Icon } from '@iconify/react';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 
-export default function Game({setView, width, height, bombs, view}){
+export default function Game({setView, width, height, bombs, view, startTimer}){
   const [board, setBoard] = useState(Array(width * height).fill(0));
   const [boardOpen, setBoardOpen] = useState(Array(width * height).fill(0));
   const [flg, setFlg] = useState(0);
@@ -14,6 +14,7 @@ export default function Game({setView, width, height, bombs, view}){
 
   // 内部初期配置の設定
   useEffect(() => {
+    startTimer();
     // ゲーム画面の場合の初期化(Missの時は実行しない)
     if(view===2)setBoard(setBombs({ board, width, height, bombs })); // Set the initial state in useEffect
   }, [view, width, height, bombs]);

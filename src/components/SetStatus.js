@@ -1,6 +1,6 @@
 import { Box, Button, Input, Slider, Typography } from "@mui/material";
 
-export default function SetStatus({setView, setWidth, width, setHeight, height, setBombs, bombs, setTime}){
+export default function SetStatus({setView, setWidth, width, setHeight, height, setBombs, bombs}){
   // 横幅設定(スライダー)
   const handleWidthChange = (event,value) => {
     setWidth(value);
@@ -125,7 +125,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
         </Box>
       </Box>
       <Box sx={{display:'flex', justifyContent:'right'}}>
-        <Button onClick={()=>{setView(2);setTime(0);}} sx={{paddingX:2,paddingY:0.5,margin:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:10,color:"black",border:2}}>ゲームスタート！</Button>
+        <Button onClick={()=>{setView(2)}} sx={{paddingX:2,paddingY:0.5,margin:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:10,color:"black",border:2}}>ゲームスタート！</Button>
       </Box>
     </Box>
   );
