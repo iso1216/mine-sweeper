@@ -13,6 +13,7 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [timer, setTimer] = useState(false);
 
+  // タイマースタート
   const startTimer = () => {
     setTimer(true);
     setTime(0);
@@ -25,7 +26,7 @@ const App = () => {
       case 1:
         return <SetStatus setView={setView} setWidth={setWidth} width={width} setHeight={setHeight} height={height} setBombs={setBombs} bombs={bombs} />;
       case 2:
-        return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} startTimer={startTimer} />;
+        return <Game setView={setView} width={width} height={height} bombs={bombs} view={view} startTimer={startTimer} setTimer={setTimer} setTime={setTime} timer={timer} />;
       case 3:
         return <Result setView={setView} time={time} />;
       default:

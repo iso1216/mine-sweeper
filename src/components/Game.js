@@ -6,7 +6,7 @@ import Miss from "./Miss";
 import { Icon } from '@iconify/react';
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 
-export default function Game({setView, width, height, bombs, view, startTimer}){
+export default function Game({setView, width, height, bombs, view, startTimer, setTimer, setTime, timer}){
   const [board, setBoard] = useState(Array(width * height).fill(0));
   const [boardOpen, setBoardOpen] = useState(Array(width * height).fill(0));
   const [flg, setFlg] = useState(0);
@@ -31,7 +31,20 @@ export default function Game({setView, width, height, bombs, view, startTimer}){
       {// 画面の選定 
         viewMiss ? 
         <Miss setView={setView} width={width} height={height} board={board} boardOpen={boardOpen} /> :
-        <Board width={width} height={height} board={board} setView={setView} boardOpen={boardOpen} setBoardOpen={setBoardOpen} bombs={bombs} flg={flg} setFlg={setFlg} setViewMiss={setViewMiss} />
+        <Board
+          width={width}
+          height={height}
+          board={board}
+          setView={setView}
+          boardOpen={boardOpen}
+          setBoardOpen={setBoardOpen}
+          bombs={bombs}
+          flg={flg}
+          setFlg={setFlg}
+          setViewMiss={setViewMiss}
+          setTime={setTime}
+          setTimer={setTimer}
+          timer={timer} />
       }
     </Box>
   );

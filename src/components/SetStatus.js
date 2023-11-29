@@ -42,89 +42,92 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
 
   return(
     <Box width={"100%"}>
-      <Box margin={5}>
-        <Box sx={{display:"flex", justifyContent:"center"}}>
-          <Typography id="input-slider" gutterBottom sx={{marginRight:5.5}}>
-            横幅
-          </Typography>
-          <Slider
-            value={typeof width === 'number' ? width : 0}
-            min={5}
-            max={20}
-            onChange={handleWidthChange}
-            sx={{width:"60%", marginRight:2}}
-          />
-          <Input
-            value={width}
-            size="small"
-            onChange={handleInputWidthChange}
-            onBlur={handleBlur}
-            inputProps={{
-              min: 5,
-              max: 20,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-            sx={{width:50}}
-          />
+      <Box sx={{margin:{xs: 0, sm: 5}}}>
+        <Box>
+          <Box sx={{display:"flex", justifyContent:"center"}}>
+            <Typography id="input-slider" gutterBottom sx={{marginRight:5.5}}>
+              横幅
+            </Typography>
+            <Slider
+              value={typeof width === 'number' ? width : 0}
+              min={5}
+              max={20}
+              onChange={handleWidthChange}
+              sx={{width:"60%", marginRight:2}}
+            />
+            <Input
+              value={width}
+              size="small"
+              onChange={handleInputWidthChange}
+              onBlur={handleBlur}
+              inputProps={{
+                min: 5,
+                max: 20,
+                type: 'number',
+                'aria-labelledby': 'input-slider',
+              }}
+              sx={{width:50}}
+            />
+          </Box>
+        </Box>
+        <Box>
+          <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
+            <Typography id="input-slider" gutterBottom sx={{marginRight:5.9}}>
+              縦幅
+            </Typography>
+            <Slider
+              value={typeof height === 'number' ? height : 0}
+              min={5}
+              max={20}
+              onChange={handleHeightChange}
+              sx={{width:"60%", marginRight:2}}
+            />
+            <Input
+              value={height}
+              size="small"
+              onChange={handleInputHeightChange}
+              onBlur={handleBlur}
+              inputProps={{
+                min: 5,
+                max: 20,
+                type: 'number',
+                'aria-labelledby': 'input-slider',
+              }}
+              sx={{width:50}}
+            />
+          </Box>
+        </Box>
+        <Box>
+          <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
+            <Typography id="input-slider" gutterBottom sx={{marginRight:3}}>
+              爆弾の数
+            </Typography>
+            <Slider
+              value={typeof bombs === 'number' ? bombs : 0}
+              min={5}
+              max={parseInt(width*height/4)}
+              onChange={handleBombsChange}
+              aria-labelledby="input-slider"
+              sx={{width:"60%", marginRight:2}}
+            />
+            <Input
+              value={bombs}
+              size="small"
+              onChange={handleInputBombsChange}
+              onBlur={handleBlur}
+              inputProps={{
+                min: 5,
+                max: parseInt(width*height/4),
+                type: 'number',
+                'aria-labelledby': 'input-slider',
+              }}
+              sx={{width:50}}
+            />
+          </Box>
         </Box>
       </Box>
-      <Box margin={5}>
-        <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
-          <Typography id="input-slider" gutterBottom sx={{marginRight:5.9}}>
-            縦幅
-          </Typography>
-          <Slider
-            value={typeof height === 'number' ? height : 0}
-            min={5}
-            max={20}
-            onChange={handleHeightChange}
-            sx={{width:"60%", marginRight:2}}
-          />
-          <Input
-            value={height}
-            size="small"
-            onChange={handleInputHeightChange}
-            onBlur={handleBlur}
-            inputProps={{
-              min: 5,
-              max: 20,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-            sx={{width:50}}
-          />
-        </Box>
-      </Box>
-      <Box margin={5}>
-        <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
-          <Typography id="input-slider" gutterBottom sx={{marginRight:3}}>
-            爆弾の数
-          </Typography>
-          <Slider
-            value={typeof bombs === 'number' ? bombs : 0}
-            min={5}
-            max={parseInt(width*height/4)}
-            onChange={handleBombsChange}
-            aria-labelledby="input-slider"
-            sx={{width:"60%", marginRight:2}}
-          />
-          <Input
-            value={bombs}
-            size="small"
-            onChange={handleInputBombsChange}
-            onBlur={handleBlur}
-            inputProps={{
-              min: 5,
-              max: parseInt(width*height/4),
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-            sx={{width:50}}
-          />
-        </Box>
-      </Box>
-      <Box sx={{display:'flex', justifyContent:'right'}}>
+      <Box sx={{display:'flex', justifyContent:'space-between', marginX: {xs: 0, sm: 10}}}>
+        <Button onClick={()=>{setView(0)}} sx={{paddingX:2,paddingY:0.5,margin:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:10,color:"black",border:2}}>戻る</Button>
         <Button onClick={()=>{setView(2)}} sx={{paddingX:2,paddingY:0.5,margin:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:10,color:"black",border:2}}>ゲームスタート！</Button>
       </Box>
     </Box>

@@ -3,18 +3,34 @@ import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
 import { useEffect } from "react";
 
-export default function Board({ width, height, board, setView, boardOpen, setBoardOpen, bombs, flg, setFlg, setViewMiss }) {
+export default function Board({ width, height, board, setView, boardOpen, setBoardOpen, bombs, flg, setFlg, setViewMiss, setTime, setTimer, timer }) {
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
 
   // クリアチェック
   useEffect(() => {
     if (!boardOpen.includes(0) && !boardOpen.includes(3)){
+      stopTimer();
       setTimeout(() => {
         setView(3);
       }, 2000);
     }
   },[boardOpen])
+
+  // タイマーストップ
+  const stopTimer = () => setTimer(false);
+
+  // タイマー
+  useEffect(() => {
+    let interval;
+    if (timer) {
+      interval = setInterval(() => {
+        setTime((prevTime) => (prevTime * 10 + 1) / 10);
+      }, 100);
+    }
+
+    return () => clearInterval(interval);
+  }, [timer]);
 
   const handleChange = (event, i) => {
     const newBoardOpen = [...boardOpen];
