@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
 import { useEffect } from "react";
@@ -6,6 +6,8 @@ import { useEffect } from "react";
 export default function Board({ width, height, board, setView, boardOpen, setBoardOpen, bombs, flg, setFlg, setViewMiss, setTime, setTimer, timer }) {
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
+  const matches = useMediaQuery("(min-width:320px)");
+  const match = useMediaQuery("(min-width:450px)");
 
   // クリアチェック
   useEffect(() => {
@@ -77,10 +79,10 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
                 sx={{
                   minWidth: 0,
                   minHeight: 0,
-                  width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
-                  height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
+                  width: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px", md : height < 15 ? "45px" : "30px"},
+                  height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
                   padding: 0,
-                  border: 4,
+                  border: match ? 4 : matches ? 3 : 2,
                   borderColor: "#EEE",
                   borderRadius: 0,
                   borderStyle: "outset",

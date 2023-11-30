@@ -1,9 +1,11 @@
-import { Button } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 import { Icon } from '@iconify/react';
 
 export default function CheckOpen({boardOpen, board, num, handleChange, height}) {
   const color = ["black", "blue", "green", "red", "purple"];
+  const matches = useMediaQuery("(min-width:320px)");
+  const match = useMediaQuery("(min-width:450px)");
 
   // 数字のマス
   const number = () => {
@@ -11,10 +13,10 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
-        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
+        width: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px", md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
-        border: 4,
+        border: match ? 4 : matches ? 3 : 2,
         borderColor: "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
@@ -35,10 +37,10 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
-        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
+        width: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px", md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
-        border: 4,
+        border: match ? 4 : matches ? 3 : 2,
         borderColor: "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
@@ -57,10 +59,10 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
       sx={{
         minWidth: 0,
         minHeight: 0,
-        width: {xs : height < 15 ? "30px" : "20px",md : height < 15 ? "45px" : "30px"},
-        height: {xs : height < 15 ? "30px" : "20px", md : height < 15 ? "45px" : "30px"},
+        width: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px", md : height < 15 ? "45px" : "30px"},
+        height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
-        border: 4,
+        border: match ? 4 : matches ? 3 : 2,
         borderColor: "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
