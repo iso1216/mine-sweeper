@@ -11,7 +11,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
   const matches = useMediaQuery("(min-width:320px)");
   const match = useMediaQuery("(min-width:450px)");
   const [clicker, setClicker] = useState(true);
-  const [state, setState] = useState([0,0]);
+  const [state, setState] = useState([0,0,0]);
 
   // キーボード操作用
   const handleKeyPress = useCallback((event) => {
@@ -37,7 +37,12 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
       setState(newState);
     // マスに対する処理
     } else if (event.key === " ") {
-      handleChange(event, state[1] + state[0] * width)
+      if (state[2] === 0) {
+        newState[2]++;
+        setState(newState);
+        return;
+      }
+      handleChange(event, state[1] + state[0] * width);
     }
   }, [state, setState, clicker, setClicker, height, width]);
 
@@ -91,7 +96,6 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
         } else {
           newBoardOpen[i] = 1;
           setBoardOpen(newBoardOpen);
-          console.log(board)
           // 隣接する0の一括表示
           if (board[i]===0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
         }
