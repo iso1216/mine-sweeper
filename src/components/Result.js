@@ -21,7 +21,7 @@ export default function Result({setView, time}){
     <Box>
       <Box>
         <Typography variant="h2">GAME CLEAR!!!</Typography>
-        <Typography display={"flex"} justifyContent={"center"} variant="h4" margin={2}>クリアタイム: {time}秒</Typography>
+        <Typography display={"flex"} justifyContent={"center"} variant="h4" margin={2}>クリアタイム: {time-2}秒</Typography>
       </Box>
       <Box display={"flex"} justifyContent={"center"}>
         <Button

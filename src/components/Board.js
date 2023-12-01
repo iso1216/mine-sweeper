@@ -90,6 +90,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
         } else {
           newBoardOpen[i] = 1;
           setBoardOpen(newBoardOpen);
+          console.log(board)
           // 隣接する0の一括表示
           if (board[i]===0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
         }
