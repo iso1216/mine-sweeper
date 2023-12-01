@@ -1,7 +1,7 @@
 import { Box, Button, useMediaQuery } from "@mui/material";
 import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 
 
@@ -12,6 +12,42 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
   const match = useMediaQuery("(min-width:450px)");
   const [clicker, setClicker] = useState(true);
   const [state, setState] = useState([0,0]);
+
+  // キーボード操作用
+  const handleKeyPress = useCallback((event) => {
+    const newState = [...state];
+    // 旗操作
+    if (event.key === "f")setClicker(!clicker);
+    // 位置変動
+    else if (event.key === "ArrowUp") {
+      if (state[0] === 0) return;
+      newState[0]--;
+      setState(newState);
+    } else if (event.key === "ArrowDown") {
+      if (state[0] === height-1) return;
+      newState[0]++;
+      setState(newState);
+    } else if (event.key === "ArrowLeft") {
+      if (state[1] === 0) return;
+      newState[1]--;
+      setState(newState);
+    } else if (event.key === "ArrowRight") {
+      if (state[1] === width-1) return;
+      newState[1]++;
+      setState(newState);
+    // マスに対する処理
+    } else if (event.key === " ") {
+      handleChange(event, state[1] + state[0] * width)    }
+  }, [state, setState, clicker, setClicker, height, width]);
+
+  useEffect(() => {
+    // コンポーネントがマウントされた時にイベントリスナーを追加する
+    window.addEventListener('keydown', handleKeyPress);
+    // コンポーネントがアンマウントされた時にイベントリスナーを削除する
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   // クリアチェック
   useEffect(() => {
@@ -41,7 +77,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
   const handleChange = (event, i) => {
     const newBoardOpen = [...boardOpen];
     // 左右クリックの判定
-    if (event.button === 0 && clicker){
+    if ((event.button === 0 && clicker) || (event.key === " " && clicker)){
       // マスが空いているかの判定
       if (boardOpen[i] === 0){
         // マスが爆弾かどうか
@@ -58,7 +94,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
           if (board[i]===0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
         }
       }
-    } else if ((event.button === 0 && !clicker) || event.button === 2){
+    } else if (((event.button === 0 && !clicker) || event.button === 2) || (event.key === " " && !clicker)){
       if (newBoardOpen[i] === 0 && flg < bombs){
         newBoardOpen[i] = 2;
         setFlg(flg+1);

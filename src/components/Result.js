@@ -1,6 +1,22 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useCallback, useEffect } from "react";
 
 export default function Result({setView, time}){
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === " ") {
+      setView(0)
+    }
+  }, []);
+  
+  useEffect(() => {
+    // コンポーネントがマウントされた時にイベントリスナーを追加する
+    window.addEventListener('keydown', handleKeyPress);
+    // コンポーネントがアンマウントされた時にイベントリスナーを削除する
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   return(
     <Box>
       <Box>

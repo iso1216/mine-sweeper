@@ -1,9 +1,26 @@
 import { Box, Button } from "@mui/material";
 import OpenAll from "./OpenAll";
+import { useCallback, useEffect } from "react";
 
 export default function Miss({setView, width, height, board, boardOpen}){
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
+
+    // キーボード操作用
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === " ") {
+      setView(0)
+    }
+  }, []);
+  
+  useEffect(() => {
+    // コンポーネントがマウントされた時にイベントリスナーを追加する
+    window.addEventListener('keydown', handleKeyPress);
+    // コンポーネントがアンマウントされた時にイベントリスナーを削除する
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return(
     <Box>
