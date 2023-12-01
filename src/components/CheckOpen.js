@@ -2,7 +2,7 @@ import { Button, useMediaQuery } from "@mui/material";
 import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
 import { Icon } from '@iconify/react';
 
-export default function CheckOpen({boardOpen, board, num, handleChange, height}) {
+export default function CheckOpen({boardOpen, board, num, handleChange, height, point}) {
   const color = ["black", "blue", "green", "red", "purple"];
   const matches = useMediaQuery("(min-width:320px)");
   const match = useMediaQuery("(min-width:450px)");
@@ -17,7 +17,7 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
         height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: match ? 4 : matches ? 3 : 2,
-        borderColor: "#EEE",
+        borderColor: point ? "red" : "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
         backgroundColor: "#ccc",
@@ -41,7 +41,7 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
         height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: match ? 4 : matches ? 3 : 2,
-        borderColor: "#EEE",
+        borderColor: point ? "red" : "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
         backgroundColor: "#b8b7b7",
@@ -63,7 +63,7 @@ export default function CheckOpen({boardOpen, board, num, handleChange, height})
         height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
         padding: 0,
         border: match ? 4 : matches ? 3 : 2,
-        borderColor: "#EEE",
+        borderColor: point ? "red" : "#EEE",
         borderRadius: 0,
         borderStyle: "outset",
         backgroundColor: "#b8b7b7",

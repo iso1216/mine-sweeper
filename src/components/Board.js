@@ -1,13 +1,17 @@
 import { Box, Button, useMediaQuery } from "@mui/material";
 import CheckOpen from "./CheckOpen";
 import { OpenZero } from "./OpenZero";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import EmojiFlagsRoundedIcon from '@mui/icons-material/EmojiFlagsRounded';
+
 
 export default function Board({ width, height, board, setView, boardOpen, setBoardOpen, bombs, flg, setFlg, setViewMiss, setTime, setTimer, timer }) {
   const Width = Array.from({ length: width }, (_, index) => index);
   const Height = Array.from({ length: height }, (_, index) => index);
   const matches = useMediaQuery("(min-width:320px)");
   const match = useMediaQuery("(min-width:450px)");
+  const [clicker, setClicker] = useState(true);
+  const [state, setState] = useState([0,0]);
 
   // クリアチェック
   useEffect(() => {
@@ -20,7 +24,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
   },[boardOpen])
 
   // タイマーストップ
-  const stopTimer = () => setTimer(false);
+  const stopTimer = () => setTimer(true);
 
   // タイマー
   useEffect(() => {
@@ -37,7 +41,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
   const handleChange = (event, i) => {
     const newBoardOpen = [...boardOpen];
     // 左右クリックの判定
-    if (event.button === 0){
+    if (event.button === 0 && clicker){
       // マスが空いているかの判定
       if (boardOpen[i] === 0){
         // マスが爆弾かどうか
@@ -54,7 +58,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
           if (board[i]===0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
         }
       }
-    } else if (event.button === 2){
+    } else if ((event.button === 0 && !clicker) || event.button === 2){
       if (newBoardOpen[i] === 0 && flg < bombs){
         newBoardOpen[i] = 2;
         setFlg(flg+1);
@@ -72,7 +76,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
         <Box key={index} sx={{ display: "flex", justifyContent: "center" }}>
           {Width.map((number) =>
             boardOpen[number + index * width] ? (
-              <CheckOpen key={number + index * width} boardOpen={boardOpen} board={board} num={number + index * width} handleChange={handleChange} height={height} />
+              <CheckOpen key={number + index * width} boardOpen={boardOpen} board={board} num={number + index * width} handleChange={handleChange} height={height} point={state[0] === index && state[1] === number} />
             ) : (
               <Button
                 key={number + index * width}
@@ -83,7 +87,7 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
                   height: {xs : height < 15 ? "30px" : match ? "20px" : matches ? "15px" : "13.5px",md : height < 15 ? "45px" : "30px"},
                   padding: 0,
                   border: match ? 4 : matches ? 3 : 2,
-                  borderColor: "#EEE",
+                  borderColor: state[0] === index && state[1] === number ? "red" : "#EEE",
                   borderRadius: 0,
                   borderStyle: "outset",
                   backgroundColor: "#B8B7B7",
@@ -96,6 +100,28 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
           )}
         </Box>
       ))}
+      <Box display={"flex"} justifyContent={"right"}>
+        <Button
+          onClick={()=>setClicker(!clicker)}
+          sx={{
+            minWidth: 0,
+            minHeight: 0,
+            border: 4,
+            height: 40,
+            width: 40,
+            padding: 0,
+            margin: 2,
+            borderColor: clicker ? "yellow" :"red",
+            borderRadius: 0,
+            borderStyle: "outset",
+            backgroundColor: clicker ? "gray" :  "#ddd",
+            fontWeight: 700,
+            color: "black",
+          }}
+        >
+          <EmojiFlagsRoundedIcon />
+        </Button>
+      </Box>
     </Box>
   );
 }

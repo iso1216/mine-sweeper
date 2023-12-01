@@ -76,7 +76,7 @@ export default function Start({setView, setWidth, setHeight, setBombs}){
             <Typography sx={{ fontSize: {xs: 10, sm: 15} }}>左クリックでマスを開き、右クリックで旗を設置できます。</Typography>
             </ListItem>
             <ListItem sx={{background:"white",borderLeft:5,borderColor:"green",marginBottom:"5px"}}>
-            <ListItemText primary="右下のボタンを押すことで、旗モードを切り替えられます。" primaryTypographyProps={{fontSize: {xs: 10, sm: 15}}} secondary="※赤色の枠の時が旗モード" secondaryTypographyProps={{fontSize: {xs: 8, sm: 12}}} />
+            <ListItemText primary="右下のボタンを押すことで、旗設置モードを切り替えられます。" primaryTypographyProps={{fontSize: {xs: 10, sm: 15}}} secondary="※赤色の枠の時が旗モード" secondaryTypographyProps={{fontSize: {xs: 8, sm: 12}}} />
             </ListItem>
             <ListItem sx={{background:"white",borderLeft:5,borderColor:"green",marginBottom:"5px"}}>
             <ListItemText primary="キー入力対応" primaryTypographyProps={{fontSize: {xs: 10, sm: 15}}} secondary="矢印キーで場所を選び、スペースで処理、fキーで旗モードの切り替えができます。" secondaryTypographyProps={{fontSize: {xs: 8, sm: 12}}} />
