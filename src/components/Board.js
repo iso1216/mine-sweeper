@@ -37,7 +37,8 @@ export default function Board({ width, height, board, setView, boardOpen, setBoa
       setState(newState);
     // マスに対する処理
     } else if (event.key === " ") {
-      handleChange(event, state[1] + state[0] * width)    }
+      handleChange(event, state[1] + state[0] * width)
+    }
   }, [state, setState, clicker, setClicker, height, width]);
 
   useEffect(() => {

@@ -10,13 +10,13 @@ const App = () => {
   const [width, setWidth] = useState(5);
   const [height, setHeight] = useState(5);
   const [bombs, setBombs] = useState(5);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(-2);
   const [timer, setTimer] = useState(false);
 
   // タイマースタート
   const startTimer = () => {
     setTimer(true);
-    setTime(0);
+    setTime(-2);
   }
 
   const ViweController = () => {
