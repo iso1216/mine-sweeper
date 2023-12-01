@@ -44,7 +44,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
     <Box width={"100%"}>
       <Box sx={{margin:{xs: 0, sm: 5}}}>
         <Box>
-          <Box sx={{display:"flex", justifyContent:"center"}}>
+          <Box sx={{display:"flex", justifyContent:"center", alignItems: "center"}}>
             <Typography id="input-slider" gutterBottom sx={{marginRight:5.5}}>
               横幅
             </Typography>
@@ -71,7 +71,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
           </Box>
         </Box>
         <Box>
-          <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
+          <Box alignItems="center" sx={{display:"flex", justifyContent:"center", alignItems: "center"}}>
             <Typography id="input-slider" gutterBottom sx={{marginRight:5.9}}>
               縦幅
             </Typography>
@@ -98,7 +98,7 @@ export default function SetStatus({setView, setWidth, width, setHeight, height, 
           </Box>
         </Box>
         <Box>
-          <Box alignItems="center" sx={{display:"flex", justifyContent:"center"}}>
+          <Box alignItems="center" sx={{display:"flex", justifyContent:"center", alignItems: "center"}}>
             <Typography id="input-slider" gutterBottom sx={{marginRight:3}}>
               爆弾の数
             </Typography>
