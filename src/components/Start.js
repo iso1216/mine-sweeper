@@ -1,7 +1,31 @@
 import { Box, Button, Grid, List, ListItem, ListItemText, Typography, useMediaQuery } from "@mui/material";
+import { useCallback, useEffect } from "react";
 
 export default function Start({setView, setWidth, setHeight, setBombs}){
   const matches = useMediaQuery("(min-width:500px)");
+
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === "1") {
+      handleClick(0);
+    } else if (event.key === "2") {
+      handleClick(1);
+    } else if (event.key === "3") {
+      handleClick(2);
+    } else if (event.key === "4") {
+      handleClick(3);
+    }
+  }, []);
+  
+  useEffect(() => {
+    // コンポーネントがマウントされた時にイベントリスナーを追加する
+    window.addEventListener('keydown', handleKeyPress);
+    // コンポーネントがアンマウントされた時にイベントリスナーを削除する
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
+
   const handleClick = (value) => {
     switch (value){
       // 難易度簡単
@@ -43,16 +67,16 @@ export default function Start({setView, setWidth, setHeight, setBombs}){
       <Box flexGrow={1}>
       <Grid container spacing={1} justifyContent={"center"}>
         <Grid item >
-          <Button onClick={()=>{handleClick(0)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>簡単</Button>
+          <Button onClick={()=>{handleClick(0)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>1:簡単</Button>
         </Grid>
         <Grid item >
-          <Button onClick={()=>{handleClick(1)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>普通</Button>
+          <Button onClick={()=>{handleClick(1)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>2:普通</Button>
         </Grid>
         <Grid item >
-          <Button onClick={()=>{handleClick(2)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>難しい</Button>
+          <Button onClick={()=>{handleClick(2)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>3:難しい</Button>
         </Grid>
         <Grid item >
-          <Button onClick={()=>{handleClick(3)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>自分で設定</Button>
+          <Button onClick={()=>{handleClick(3)}} sx={{paddingX:3,paddingY:1,background:'linear-gradient(#f1e767 0.46%, #feb645 100.87%)',fontSize:{xs: 10, sm: 20},color:"black",border:2}}>4:自分で設定</Button>
         </Grid>
       </Grid>
       </Box>
