@@ -43,12 +43,37 @@ const Board: React.FC<BoardProps> = ({
   const [clicker, setClicker] = useState<boolean>(true);
   const [state, setState] = useState<[number, number, number]>([0, 0, 0]);
 
+  // 周辺のマスを取得する関数
+  const getSurroundingCells = useCallback((index: number): number[] => {
+    const x = index % width;
+    const y = Math.floor(index / width);
+    const surrounding: number[] = [];
+
+    // 上下左右斜めのセルを追加
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        if (dx === 0 && dy === 0) continue; // 自分自身はスキップ
+        
+        const nx = x + dx;
+        const ny = y + dy;
+        
+        // 盤面内かチェック
+        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+          surrounding.push(nx + ny * width);
+        }
+      }
+    }
+    
+    return surrounding;
+  }, [width, height]);
+
   // マスに対する処理
   const handleChange = useCallback((event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent, i: number): void => {
     const newBoardOpen = [...boardOpen];
-    // 左右クリックの判定
+    
+    // 左クリックの判定
     if ((event.type === 'mousedown' && (event as React.MouseEvent).button === 0 && clicker) || (event instanceof KeyboardEvent && event.key === " " && clicker)){
-      // マスが空いているかの判定
+      // マスが空いていないかの判定
       if (boardOpen[i] === 0){
         // マスが爆弾かどうか
         if (board[i] === "bombs") {
@@ -61,10 +86,51 @@ const Board: React.FC<BoardProps> = ({
           newBoardOpen[i] = 1;
           setBoardOpen(newBoardOpen);
           // 隣接する0の一括表示
-          if (board[i]===0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
+          if (board[i] === 0) OpenZero(newBoardOpen, i, width, height, board, setBoardOpen);
+        }
+      } 
+      // マスが既に開いている場合（数字のマス）
+      else if (boardOpen[i] === 1 && typeof board[i] === 'number' && board[i] > 0) {
+        const surroundingCells = getSurroundingCells(i);
+        
+        // 周囲のフラグの数をカウント
+        const flaggedCount = surroundingCells.filter(idx => boardOpen[idx] === 2).length;
+        
+        // 数字とフラグの数が一致する場合、周りの未開封マスを開く
+        if (flaggedCount === board[i]) {
+          let hasBomb = false;
+          
+          for (const idx of surroundingCells) {
+            // 未開封かつフラグが立っていないマスのみ処理
+            if (boardOpen[idx] === 0) {
+              if (board[idx] === "bombs") {
+                // 爆弾を踏んだ場合
+                newBoardOpen[idx] = 3;
+                hasBomb = true;
+              } else {
+                // 通常のマス
+                newBoardOpen[idx] = 1;
+                // 0のマスなら連鎖で開く
+                if (board[idx] === 0) {
+                  OpenZero(newBoardOpen, idx, width, height, board, setBoardOpen);
+                }
+              }
+            }
+          }
+          
+          setBoardOpen(newBoardOpen);
+          
+          // 爆弾を踏んだ場合
+          if (hasBomb) {
+            setTimeout(() => {
+              setViewMiss(1);
+            }, 1000);
+          }
         }
       }
-    } else if (((event.type === 'mousedown' && (event as React.MouseEvent).button === 0 && !clicker) || 
+    } 
+    // 右クリックまたは旗モードの判定
+    else if (((event.type === 'mousedown' && (event as React.MouseEvent).button === 0 && !clicker) || 
                (event.type === 'mousedown' && (event as React.MouseEvent).button === 2) || 
                (event instanceof KeyboardEvent && event.key === " " && !clicker))){
       if (newBoardOpen[i] === 0 && flg < bombs){
@@ -76,7 +142,7 @@ const Board: React.FC<BoardProps> = ({
       }
       setBoardOpen(newBoardOpen);
     }
-  }, [boardOpen, board, clicker, bombs, flg, height, setBoardOpen, setFlg, setViewMiss, width]);
+  }, [boardOpen, board, clicker, bombs, flg, height, setBoardOpen, setFlg, setViewMiss, width, getSurroundingCells]);
 
   // キーボード操作用
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
